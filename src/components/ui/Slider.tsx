@@ -9,7 +9,7 @@ import '../../styles/sliderStyle.css';
 
 // import required modules
 import { Pagination } from 'swiper/modules';
-const Slider = () => {
+const Slider: React.FC = () => {
     return (
         <>
             <Swiper pagination={true} modules={[Pagination]} className="mySwiper">

@@ -1,7 +1,7 @@
 
 const Footer = () => {
     return (
-        <footer className="bg-texture w-full">
+        <footer className="bg-texture w-full border-t border-white">
             <div className="bg-[#e2e6e0] text-[#528d2d]">
                 <div
                     className={`max-w-7xl mx-auto w-full py-20 flex justify-between flex-wrap gap-16 px-4 lg:px-0`}
@@ -30,9 +30,8 @@ const Footer = () => {
                             <h1>Subscribe Our Newsletter</h1>
                             <div className="relative">
                                 <input className="focus:outline-none text-xs w-full mt-3 py-3 px-5 rounded-full border border-[#528D2D] bg-slate-100" type="text" placeholder="Search here" />
-                                <button className="absolute right-5 top-0 mt-[21px]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                </svg>
+                                <button className="absolute right-5 top-0 mt-[21px]">
+                                    Subscribe
                                 </button>
                             </div>
                         </li>
@@ -98,6 +97,14 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className="bg-[#1b380a] py-2 relative px-4 lg:px-0">
+                    <div className="flex sm:justify-center">
+                        <button onClick={() => {
+                            window.scrollTo({ top: 0, behavior: "smooth" })
+                        }} className="w-8 h-8 -mt-20 border hover:bg-green-900 hover:text-white border-green-900 rounded-full flex justify-center items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                            </svg>
+                        </button>
+                    </div>
                     <img className="absolute bottom-10 right-0" src="../../../public/logo.png" alt="" />
                     <div
                         className={`max-w-7xl mx-auto w-full flex flex-col md:flex-row   md:justify-between md:items-center gap-3 text-md text-white`}

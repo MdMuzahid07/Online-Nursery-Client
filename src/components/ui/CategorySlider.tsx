@@ -14,7 +14,7 @@ import Card from '../category/Card';
 
 const CategorySlider = () => {
     return (
-        <div className="bg-white">
+        <div className="bg-[#E2E6E0]">
             <div className="px-4 lg:px-0 max-w-6xl mx-auto w-full">
                 <div className="-mt-14 relative">
                     <Swiper
@@ -26,24 +26,28 @@ const CategorySlider = () => {
                             nextEl: ".custom-swiper-button-next"
                         }}
                         breakpoints={{
-                            390: {
+                            240: {
                                 slidesPerView: 2,
                                 spaceBetween: 20,
                             },
-                            600: {
+                            450: {
                                 slidesPerView: 3,
                                 spaceBetween: 20,
                             },
-                            680: {
+                            730: {
                                 slidesPerView: 4,
                                 spaceBetween: 20,
                             },
-                            768: {
-                                slidesPerView: 4,
+                            830: {
+                                slidesPerView: 5,
+                                spaceBetween: 20,
+                            },
+                            1068: {
+                                slidesPerView: 6,
                                 spaceBetween: 40,
                             },
-                            1024: {
-                                slidesPerView: 6,
+                            1254: {
+                                slidesPerView: 7,
                                 spaceBetween: 20,
                             },
                         }}
@@ -77,13 +81,13 @@ const CategorySlider = () => {
                     </Swiper>
                     <div className="w-full flex items-center justify-between absolute right-0 px-4">
                         <div>
-                            <h1 className="text-xl font-bold">Categories</h1>
+                            <h1 className="text-xl font-bold text-[#1B380A]">Categories</h1>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="py-1 px-4 border rounded-full bg-white custom-swiper-button-prev">
+                            <div className="cursor-pointer py-1 px-4 border rounded-full bg-white custom-swiper-button-prev">
                                 Prev
                             </div>
-                            <div className="py-1 px-4 border rounded-full bg-white custom-swiper-button-next">
+                            <div className="cursor-pointer py-1 px-4 border rounded-full bg-white custom-swiper-button-next">
                                 Next
                             </div>
                         </div>

@@ -8,11 +8,14 @@ import 'swiper/css/pagination';
 import '../../styles/sliderStyle.css';
 
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 const Slider: React.FC = () => {
     return (
         <>
-            <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+            <Swiper pagination={true} autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+            }} modules={[Autoplay, Pagination]} className="mySwiper">
                 <SwiperSlide>
                     <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('../../../public/slider-1.jpg')] flex items-center">
                         <div className="max-w-7xl mx-auto px-4 lg:px-0">

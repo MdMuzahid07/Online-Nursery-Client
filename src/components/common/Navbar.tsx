@@ -18,9 +18,7 @@ const Navbar = () => {
                 <div className="flex justify-between items-center relative">
                     <div>
                         {/* <img src="" alt="" /> */}
-                        <h1 className="text-xl md:text-4xl font-bold text-[#528d2d]">
-                            FloraEssence
-                        </h1>
+                        <img className="w-12" src="../../../public/flora-essence.png" alt="" />
                     </div>
                     <div className="flex items-center">
                         <ul className="md:flex items-center hidden gap-7 font-semibold text-[#092001] text-xl md:border-r-2 border-slate-200 pr-6 mr-6 h-10">

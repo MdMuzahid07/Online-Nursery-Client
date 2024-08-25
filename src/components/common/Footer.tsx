@@ -7,7 +7,10 @@ const Footer = () => {
                     className={`max-w-7xl mx-auto w-full py-20 flex justify-between flex-wrap gap-16 px-4 lg:px-0`}
                 >
                     <ul className="max-w-[400px]">
-                        <li className="text-3xl font-bold mb-8">FloraEssence</li>
+                        <li className="text-3xl gap-2 flex items-center font-bold mb-8">
+                            <img className="w-14 bg-white rounded-xl" src="../../../public/flora-essence.png" alt="" />
+                            <p>FloraEssence</p>
+                        </li>
                         <li className=" mb-5">
                             <small>
                                 <p className="inline-block text-md">FloraEssence</p> is your online destination for elegant, premium plants. We offer a curated selection of flowers and greenery, with a seamless shopping experience and secure payments, bringing the essence of nature into your home effortlessly.

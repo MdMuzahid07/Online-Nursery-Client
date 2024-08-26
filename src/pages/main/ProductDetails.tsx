@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../../components/product/ProductCard";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
+    const { productId } = useParams();
+
     const product = {
         _id: "66c9637ee37294a5d67b4ad1",
         title: "Gardening Tool Set",
@@ -34,6 +37,10 @@ const ProductDetails = () => {
         setReviews([...reviews, newReview]);
         setNewReview({ name: '', rating: 5, comment: '' });
     };
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    });
 
     return (
         <div className="bg-[#E2E6E0] min-h-screen">

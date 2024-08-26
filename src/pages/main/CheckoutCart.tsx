@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import CartPageCard from "../../cart/CartPageCard"
+import { useEffect } from "react";
 
 const CheckoutCart = () => {
     const navigate = useNavigate();
@@ -8,6 +9,9 @@ const CheckoutCart = () => {
         navigate("/payment")
     };
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    });
 
     return (
         <div className="bg-[#E2E6E0] w-full h-full">

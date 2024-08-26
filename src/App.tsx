@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import ProductSearch from "./components/product/ProductSearch"
 import CategorySlider from "./components/ui/CategorySlider"
 import Slider from "./components/ui/Slider"
@@ -6,6 +7,9 @@ import Banner from "./pages/main/product/Banner"
 
 const App = () => {
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  });
 
   return (
     <>

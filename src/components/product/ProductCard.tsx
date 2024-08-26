@@ -1,25 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = () => {
+const ProductCard = ({ product }: any) => {
     const navigate = useNavigate();
 
-    const handleCart = () => {
-        navigate("/product-details");
+    const handleCart = (id: any) => {
+        navigate(`/product-details/${id}`)
     };
 
     return (
-        <div className="cursor-pointer border border-white hover:border-green-700 w-full min-h-96  overflow-hidden rounded-lg bg-slate-100">
+        <div className="cursor-pointer border border-white hover:border-green-700 w-full min-h-96  overflow-hidden rounded-lg bg-slate-200 max-h-[410px]">
             <img className="w-full h-72 object-cover" src="../../../public/slider-3.jpg" alt="" />
             <div className="p-4">
-                <p className="text-xs font-semibold text-green-900">Price</p>
-                <h3 className="text-sm font-bold text-gray-700">Product Name</h3>
+                <p className="text-xs font-semibold text-green-900">Price: {product?.price}</p>
+                <h3 className="text-sm font-bold text-gray-700">Name: {product?.title}</h3>
                 <div className="flex items-center text-xs">
                     <span className="text-yellow-500 mr-1">&#9733;</span>
-                    <span className="text-green-700">Rating</span>
+                    <span className="text-green-700">Rating {product?.rating}</span>
                     <span className="ml text-green-700">(120 reviews)</span>
                 </div>
                 <div className="w-full flex items-center gap-3 justify-end mt-3">
-                    <button onClickCapture={() => handleCart()} onClick={() => window.alert("wow")} className="w-7 h-7 flex justify-center items-center rounded-full border font-bold border-green-900 hover:bg-green-900 text-sm text-green-900 hover:text-white">
+                    <button onClickCapture={() => handleCart(product?._id)} onClick={() => window.alert("wow")} className="w-7 h-7 flex justify-center items-center rounded-full border font-bold border-green-900 hover:bg-green-900 text-sm text-green-900 hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />

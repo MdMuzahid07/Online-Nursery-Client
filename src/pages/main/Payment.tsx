@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import StripePayment from "./product/StripePayment";
 
 const Payment = () => {
+    const [paymentSection, setPaymentSection] = useState(false);
 
     // const example = {
     //     cartId: "66c9941b6dc7242ee20586e4",
@@ -56,12 +58,17 @@ const Payment = () => {
         e.preventDefault();
         console.log("Form Data: ", formData);
     };
+
     return (
         <div className="min-h-screen bg-[#E2E6E0] pb-32 relative">
             <img className="w-full h-[500px] object-cover z-0" src="../../../public/slider-2.jpg" alt="" />
-            <div className="max-w-7xl  mx-auto bg-white bg-opacity-75 rounded-lg p-8 -mt-44 relative">
-                <h1 className="text-3xl font-bold text-green-900 text-center mb-10">Checkout</h1>
-                <form onSubmit={handleSubmit}>
+            <div className="max-w-7xl  mx-auto bg-white min-h-[400px] bg-opacity-75 rounded-lg p-8 -mt-44 relative">
+                {
+                    !paymentSection && <h1 className="text-3xl font-bold text-green-900 text-center mb-10">Checkout</h1>
+                }{
+                    paymentSection && <h1 className="text-3xl font-bold text-green-900 text-center mb-10">Make Payment with stripe</h1>
+                }
+                {!paymentSection && <form onSubmit={handleSubmit}>
                     {/* Customer Information */}
                     <h2 className="text-xl font-semibold text-green-900 mb-4">Customer Information</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -169,15 +176,26 @@ const Payment = () => {
 
                     <div className="mt-10 flex justify-end">
                         <button
-                            type="submit"
+                            onClick={() => {
+                                setPaymentSection(!paymentSection);
+                                return (
+                                    window.scrollTo({ top: 0, behavior: "smooth" })
+                                )
+                            }}
+                            // type="submit"
                             className="bg-green-900 w-44 font-bold border hover:border-green-900 hover:bg-white hover:text-green-900 text-white py-2 px-4 rounded-full"
                         >
-                            Place Order
+                            Next
                         </button>
                     </div>
-                </form>
+                </form>}
+                {
+                    paymentSection
+                    &&
+                    <StripePayment />
+                }
             </div>
-        </div>
+        </div >
     );
 }
 

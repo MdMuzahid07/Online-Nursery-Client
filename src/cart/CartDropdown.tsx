@@ -6,8 +6,12 @@ import CartCard from "./CartCard"
 const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
     const navigate = useNavigate();
 
-    const handleCheckout = () => {
+    const handleCart = () => {
         navigate("/cart");
+        setCartDrop(false);
+    };
+    const handleCheckout = () => {
+        navigate("/payment");
         setCartDrop(false);
     };
 
@@ -28,8 +32,8 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
                 }
             </div>
             <div className="flex justify-between items-center gap-2 bottom-0 pt-3">
-                <button onClick={() => handleCheckout()} className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-white hover:text-green-900 bg-green-900 text-white">View Cart</button>
-                <button className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-green-900 hover:text-white">Checkout</button>
+                <button onClick={() => handleCart()} className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-white hover:text-green-900 bg-green-900 text-white">View Cart</button>
+                <button onClick={() => handleCheckout()} className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-green-900 hover:text-white">Checkout</button>
             </div>
         </Dropdown>
     )

@@ -8,6 +8,8 @@ import Payment from "../pages/main/Payment";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import ManageProduct from "../pages/dashboard/ManageProduct";
 import ManageCategory from "../pages/dashboard/ManageCategory";
+import AddProduct from "../pages/dashboard/AddProduct";
+import AddCategory from "../pages/dashboard/AddCategory";
 
 
 
@@ -43,8 +45,16 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
             {
+                path: "add-product",
+                element: <AddProduct />
+            },
+            {
                 path: "manage-product",
                 element: <ManageProduct />
+            },
+            {
+                path: "add-category",
+                element: <AddCategory />
             },
             {
                 path: "manage-category",

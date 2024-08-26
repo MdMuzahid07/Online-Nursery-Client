@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-const Dropdown = ({ children, styles, active }) => {
+const Dropdown = ({ children, styles, active }: any) => {
     return (
         <div
             className={`${styles} ${active ? "block" : "hidden"

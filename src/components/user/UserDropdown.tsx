@@ -6,7 +6,7 @@ const UserDropdown = ({ userDrop }: any) => {
     return (
         <Dropdown
             active={userDrop}
-            styles={"absolute right-0 top-16 rounded-3xl text-left"}
+            styles={"absolute right-0 top-16 rounded-lg text-left"}
         >
             <h1 className="text-3xl font-bold">Hello, User</h1>
             <ul className="mt-5">

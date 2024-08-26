@@ -55,7 +55,7 @@ const Navbar = () => {
                                     />
                                 </svg>
                             </button>
-                            <CartDropdown cartDrop={cartDrop} />
+                            <CartDropdown setCartDrop={setCartDrop} cartDrop={cartDrop} />
 
                             <button
                                 onClick={() => setUserDrop(!userDrop)}
@@ -76,7 +76,7 @@ const Navbar = () => {
                                     />
                                 </svg>
                             </button>
-                            <UserDropdown userDrop={userDrop} />
+                            <UserDropdown setUserDrop={setUserDrop} userDrop={userDrop} />
 
                             <button
                                 onClick={() => setDropdown(!dropDown)}
@@ -116,7 +116,7 @@ const Navbar = () => {
                             </button>
                             <Dropdown
                                 active={dropDown}
-                                styles={"absolute top-16 rounded-3xl right-0"}
+                                styles={"absolute top-16 rounded-lg right-0"}
                             >
                                 <ul className="font-semibold text-slate-900 text-2xl text-left">
                                     {navLinks.map(({ label, value }) => {

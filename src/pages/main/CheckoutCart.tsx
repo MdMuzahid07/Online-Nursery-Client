@@ -7,17 +7,24 @@ const CheckoutCart = () => {
                 <img className="h-full w-full object-cover" src="../../../public/slider-3.jpg" alt="" />
             </div>
             <div className="max-w-7xl mx-auto py-32 px-4 lg:px-0">
-                <h1 className="text xl md:text-2xl lg:text-4xl font-bold text-green-900">My Cart</h1>
                 <div className="grid lg:grid-cols-8 gap-7 mt-14">
-                    <div className="lg:col-span-5 bg-white rounded-lg px-4 py-5 border">
-                        <div className=" overflow-x-auto overflow-y-auto max-h-[700px]">
-                            {
-                                [0, 1, 2, 3, 4, 5]?.map(() => <CartPageCard />)
-                            }
+                    <div className="lg:col-span-5">
+                        <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-green-900">My Cart</h1>
+                        <div className=" border-t border-green-900 mt-7">
+                            <div className="overflow-y-scroll h-[400px] mt-7">
+                                {
+                                    [0, 1, 2, 3, 4, 5]?.map(() => <CartPageCard />)
+                                }
+                            </div>
                         </div>
                     </div>
                     <div className="lg:col-span-3">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, architecto laborum dolorum aliquam consequuntur autem id ex iste est! Ipsum, velit voluptatem. Nesciunt distinctio cupiditate, tempora ex quisquam error nobis beatae accusamus vitae assumenda consectetur quidem tempore iure perspiciatis soluta enim, saepe tenetur aliquid qui, similique quasi magnam nisi! Recusandae est unde odit labore doloribus expedita, sunt eos inventore perferendis fugit impedit hic delectus quod vitae repellat autem dolor architecto veritatis eius asperiores beatae quos itaque? Ab reiciendis, quod asperiores natus molestiae reprehenderit ducimus unde maxime consequatur nobis magni provident sunt deleniti nesciunt quo tempore corrupti numquam, expedita recusandae iure maiores esse eaque repellendus dolorum? Voluptatem odio accusantium minima magnam, mollitia sed veniam accusamus et, officiis voluptate quasi? Sint, cupiditate repudiandae iusto blanditiis soluta, labore cum sunt accusantium, reprehenderit tempore qui natus beatae doloribus doloremque fugit sapiente eum enim. Exercitationem, debitis, atque maiores velit ullam commodi quae harum ad esse a sint voluptatibus animi nihil magni ipsam repellat maxime nostrum corrupti rerum unde cupiditate. Eligendi nam fugiat voluptates pariatur vitae corrupti minus porro assumenda, unde incidunt veritatis eaque, maiores laudantium rem ea reiciendis exercitationem? Doloribus expedita nisi cumque, doloremque reiciendis numquam cum vero quaerat assumenda voluptates dolorem laudantium ea. Dolore!
+                        <h1 className="text-xl sm:text-2xl md:text-4xl text-green-900">Order Summery</h1>
+                        <div className="border-t border-green-900 mt-7">
+                            <div className="bg-white p-4 mt-7 rounded-lg">
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum magnam blanditiis hic esse facere quia maiores iure unde eveniet sunt fuga non, debitis quasi minus nostrum eius, assumenda earum. Tempora, soluta iusto velit neque sed minus illo aspernatur. Inventore earum rem accusantium obcaecati maxime id ad sapiente eius, nisi deleniti at incidunt repudiandae quos quae dicta ut voluptatibus sed adipisci tenetur, nemo cupiditate. Soluta animi at vitae ab eveniet, ipsum eum odio, tempora impedit reprehenderit adipisci officiis quis quaerat assumenda ut. Quidem dignissimos, libero molestiae suscipit, ipsum enim et cumque nam voluptatibus, quos incidunt expedita repellendus quae excepturi eaque hic!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -21,8 +21,16 @@ const CheckoutCart = () => {
                     <div className="lg:col-span-3">
                         <h1 className="text-xl sm:text-2xl md:text-4xl text-green-900">Order Summery</h1>
                         <div className="border-t border-green-900 mt-7">
-                            <div className="bg-white p-4 mt-7 rounded-lg">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum magnam blanditiis hic esse facere quia maiores iure unde eveniet sunt fuga non, debitis quasi minus nostrum eius, assumenda earum. Tempora, soluta iusto velit neque sed minus illo aspernatur. Inventore earum rem accusantium obcaecati maxime id ad sapiente eius, nisi deleniti at incidunt repudiandae quos quae dicta ut voluptatibus sed adipisci tenetur, nemo cupiditate. Soluta animi at vitae ab eveniet, ipsum eum odio, tempora impedit reprehenderit adipisci officiis quis quaerat assumenda ut. Quidem dignissimos, libero molestiae suscipit, ipsum enim et cumque nam voluptatibus, quos incidunt expedita repellendus quae excepturi eaque hic!</p>
+                            <div className="bg-white px-5 py-10 mt-7 rounded-lg">
+                                <ul>
+                                    <li className="mb-3 text-md"><span className="font-bold text-green-900">Total Products</span> : 10</li>
+                                    <li className="mb-3 text-md"><span className="font-bold text-green-900">Cost</span> : $100</li>
+                                    <li className="mb-3 text-md"><span className="font-bold text-green-900">Discount</span> : $100</li>
+                                    <li className="mb-3 text-md"><span className="font-bold text-green-900">Tax</span> : $100</li>
+                                    <li className="mb-3 text-md"><span className="font-bold text-green-900">Shipping Cost</span> : $100</li>
+                                </ul>
+                                <hr className="border-t border-green-900 mt-5" />
+                                <p className="text-lg"><span className="font-bold text-green-900">Grad Total</span> : $100</p>
                             </div>
                         </div>
                     </div>

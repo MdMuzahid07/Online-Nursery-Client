@@ -5,6 +5,8 @@ import MosaicView from "./pages/main/home/MosaicView"
 import Banner from "./pages/main/product/Banner"
 
 const App = () => {
+
+
   return (
     <>
       <Slider />

@@ -1,6 +1,14 @@
+import { useNavigate } from "react-router-dom"
 import CartPageCard from "../../cart/CartPageCard"
 
 const CheckoutCart = () => {
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        navigate("/payment")
+    };
+
+
     return (
         <div className="bg-[#E2E6E0] w-full h-full">
             <div className="h-56 w-full">
@@ -45,7 +53,7 @@ const CheckoutCart = () => {
 
                                 <div className="mt-7 flex items-center gap-4">
                                     <button className="px-4 py-1 border rounded-full bg-white text-green-900 hover:text-white hover:bg-red-500">Clear All</button>
-                                    <button className="px-4 py-1 border rounded-full bg-green-900 text-white hover:font-bold w-32">Checkout</button>
+                                    <button onClick={() => handleCheckout()} className="px-4 py-1 border rounded-full bg-green-900 text-white hover:font-bold w-32">Checkout</button>
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ import CartDropdown from "../../cart/CartDropdown";
 import UserDropdown from "../user/UserDropdown";
 
 const styles = {
-    btn: "sm:w-9 w-7 sm:h-9 h-7 rounded-full flex justify-center items-center border active:border-red-500",
+    btn: "sm:w-9 w-7 sm:h-9 h-7 rounded-full flex justify-center items-center border active:border-green-900",
 };
 
 const Navbar = () => {

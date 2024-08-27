@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
 
-const Card = () => {
+const Card = ({ category }: any) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -10,11 +11,11 @@ const Card = () => {
     return (
         <div onClick={() => handleClick()} className="transition ease-in-out delay-100 hover:scale-95 w-full max-h-40 border hover:border-green-900 rounded-lg cursor-pointer p-3">
             <div className="flex justify-center items-center">
-                <div className="w-28 h-28 rounded-full bg-red-500">
-                    <img className="object-cover overflow-hidden" src="../../../public/flora-essence.png" alt="" />
+                <div className="w-28 h-28 rounded-full overflow-hidden bg-white">
+                    <img className="object-cover overflow-hidden" src={category?.image} alt="" />
                 </div>
             </div>
-            <h1 className="text-xl font-bold mt-1">Name</h1>
+            <h1 className="text-xs font-bold mt-2">{category?.name}</h1>
         </div>
     )
 };

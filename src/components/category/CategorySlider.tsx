@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,8 +12,21 @@ import '../../styles/CategorySlider.css';
 // import required modules
 import { Navigation, Pagination } from 'swiper/modules';
 import Card from '../category/Card';
+import { useGetAllCategoryQuery } from '../../redux/feature/category/categoryApi';
+import { toast } from 'sonner';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const CategorySlider = () => {
+    const { data: categories, error, isLoading } = useGetAllCategoryQuery(undefined);
+
+    if (error) {
+        toast.error("categories not found", { id: "897absda0ds" })
+    };
+
+    if (isLoading) {
+        return <LoadingIndicator />
+    }
+
     return (
         <div className="bg-[#E2E6E0]">
             <div className="px-4 lg:px-0 max-w-6xl mx-auto w-full">
@@ -54,30 +68,13 @@ const CategorySlider = () => {
                         modules={[Pagination, Navigation]}
                         className="swiper-category"
                     >
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card />
-                        </SwiperSlide>
+                        {
+                            categories?.data?.map((category: any) => (
+                                <SwiperSlide>
+                                    <Card category={category} />
+                                </SwiperSlide>
+                            ))
+                        }
                     </Swiper>
                     <div className="w-full flex items-center justify-between absolute right-0 px-4">
                         <div>

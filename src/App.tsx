@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import ProductSearch from "./components/product/ProductSearch"
-import CategorySlider from "./components/ui/CategorySlider"
 import Slider from "./components/ui/Slider"
 import MosaicView from "./pages/main/home/MosaicView"
-import Banner from "./pages/main/product/Banner"
+import Banner from "./pages/main/home/Banner"
+import CategorySlider from "./components/category/CategorySlider"
 
 const App = () => {
 

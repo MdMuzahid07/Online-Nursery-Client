@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import ProductCard from "../../components/product/ProductCard";
+import ProductCard from "../../../components/product/ProductCard";
 
 const Products = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -75,6 +75,10 @@ const Products = () => {
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
     );
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    });
 
     return (
         <div className="bg-[#F4F7F6] min-h-screen">

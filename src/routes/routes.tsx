@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import App from "../App";
-import Products from "../pages/main/Products";
-import ProductDetails from "../pages/main/ProductDetails";
+import Products from "../pages/main/product/Products";
+import ProductDetails from "../pages/main/product/ProductDetails";
 import CheckoutCart from "../pages/main/CheckoutCart";
-import Payment from "../pages/main/Payment";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import ManageProduct from "../pages/dashboard/ManageProduct";
 import ManageCategory from "../pages/dashboard/ManageCategory";
 import AddProduct from "../pages/dashboard/AddProduct";
 import AddCategory from "../pages/dashboard/AddCategory";
+import Payment from "../pages/main/home/payment/Payment";
 
 
 

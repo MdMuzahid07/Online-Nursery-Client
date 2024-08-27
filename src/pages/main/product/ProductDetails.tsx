@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import ProductCard from "../../components/product/ProductCard";
+import ProductCard from "../../../components/product/ProductCard";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from "react-router-dom";

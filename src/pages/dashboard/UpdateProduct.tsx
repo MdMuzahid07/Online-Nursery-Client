@@ -1,8 +1,173 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
+import { useGetAllCategoryQuery } from "../../redux/feature/category/categoryApi";
+import { useGetASingleProductQuery, useUpdateAProductMutation } from "../../redux/feature/product/productApi";
+import { toast } from "sonner";
+import { useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
+    const { data: categories } = useGetAllCategoryQuery(undefined);
+    const [updateAProduct, { data, isLoading, error }] = useUpdateAProductMutation();
+    const [file, setFile] = useState<File | null>(null);
+    const [productCategory, setProductCategory] = useState();
+    const { productId } = useParams();
+    const { data: product } = useGetASingleProductQuery(productId);
+
+    if (isLoading) {
+        toast.loading("Loading...", { id: "updateProduct" });
+    };
+
+    if (!data && error) {
+        toast.error("failed to update product", { id: "updateProduct" });
+    };
+
+    if (data && data?.success) {
+        toast.success("product updated successfully", { id: "updateProduct" });
+    };
+
+    console.log({ product, error })
+
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFile(e.target.files?.[0] || null);
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const productData = {
+            title: e.target.title.value,
+            description: e.target.description.value,
+            price: Number(e.target.price.value),
+            quantity: Number(e.target.quantity.value),
+            rating: Number(e.target.rating.value),
+            stock: Number(e.target.stock.value),
+            category: productCategory
+        };
+
+        const formData = new FormData();
+
+        if (file) {
+            formData.append('file', file);
+        }
+
+        if (productData) {
+            formData.append('data', JSON.stringify(productData));
+        }
+
+        updateAProduct({ id: productId, data: formData });
+    };
+
+    const handleCategory = (e: any) => {
+        setProductCategory(e.target.value)
+    }
+
     return (
-        <div>UpdateProduct</div>
-    )
+        <div className="py-12">
+            <h1 className="text-3xl font-bold text-green-900 mb-8">Update Product</h1>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                    <label className="block text-green-900 text-lg">Product Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder={product?.data?.title}
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Description</label>
+                    <textarea
+                        name="description"
+                        placeholder={product?.data?.description}
+                        className="w-full p-4 py-2 rounded-lg focus:border-green-900 bg-slate-100 border"
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Price</label>
+                    <input
+                        type="number"
+                        name="price"
+                        placeholder={product?.data?.price}
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Quantity</label>
+                    <input
+                        type="number"
+                        name="quantity"
+                        placeholder={product?.data?.quantity}
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Rating</label>
+                    <input
+                        type="number"
+                        step="0.1"
+                        name="rating"
+                        placeholder={product?.data?.rating}
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Stock</label>
+                    <input
+                        type="number"
+                        name="stock"
+                        placeholder={product?.data?.stock}
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Category</label>
+                    <select
+                        name="category"
+                        onChange={handleCategory}
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    >
+                        <option value="" disabled>
+                            Select Category
+                        </option>
+                        {categories?.data?.map((category: any) => (
+                            <option key={category._id} value={category._id}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div>
+                    <label className="block text-green-900 text-lg">Product Image</label>
+                    {
+                        product && <img className="w-20 h-20 my-3 rounded-lg" src={product?.data?.imageUrl} />
+                    }
+                    <input
+                        type="file"
+                        name="file"
+                        onChange={handleFileChange}
+                        placeholder="product Image"
+                        className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    className="bg-green-900 text-white w-44 px-4 py-2 rounded-full hover:bg-green-700 transition duration-200"
+                >
+                    Update Product
+                </button>
+            </form>
+        </div>
+    );
 }
 
-export default UpdateProduct
+export default UpdateProduct;

@@ -42,19 +42,23 @@ const ManageCategory = () => {
                 <table className="table-auto w-full">
                     <thead>
                         <tr className="text-left  border-b border-green-900">
+                            <th className="px-4 py-2">No.</th>
                             <th className="px-4 py-2">Image</th>
                             <th className="px-4 py-2">Category Name</th>
                             <th className="px-4 py-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {categories?.length === 0 ? (
+                        {categories?.data?.length === 0 ? (
                             <tr>
                                 <td colSpan={3} className="text-center py-4 text-green-900">No categories available.</td>
                             </tr>
                         ) : (
-                            categories?.data?.map((category: any) => (
+                            categories?.data?.map((category: any, index: number) => (
                                 <tr key={category?._id} className="border-b border-green-900">
+                                    <td className="py-4  px-4">
+                                        {index + 1}
+                                    </td>
                                     <td className="py-4  px-4">
                                         <img
                                             src={category?.image}

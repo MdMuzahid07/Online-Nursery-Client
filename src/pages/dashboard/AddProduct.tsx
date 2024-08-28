@@ -42,7 +42,6 @@ const AddProduct = () => {
             stock: Number(e.target.stock.value),
             category: productCategory
         };
-        console.log({ productData });
 
         const formData = new FormData();
 

@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { toast } from "sonner";
-import { useUpdateACategoryMutation } from "../../redux/feature/category/categoryApi";
+import { useGetASingleCategoryQuery, useUpdateACategoryMutation } from "../../redux/feature/category/categoryApi";
 import { useParams } from "react-router-dom";
 
 
@@ -10,6 +10,7 @@ const UpdateCategory = () => {
     const [file, setFile] = useState<File | null>(null);
 
     const { categoryId } = useParams();
+    const { data: category } = useGetASingleCategoryQuery(categoryId);
 
     if (isLoading) {
         toast.loading("Loading...", { id: "updateCategory1324123" });
@@ -49,7 +50,6 @@ const UpdateCategory = () => {
         }
     };
 
-
     return (
         <div className="pt-32 max-w-3xl mx-auto">
             <h1 className="text-2xl lg:text-5xl font-bold text-green-900 mb-8">Update Category</h1>
@@ -68,13 +68,13 @@ const UpdateCategory = () => {
                         value={categoryName}
                         onChange={(e) => setCategoryName(e.target.value)}
                         className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="write here"
+                        placeholder={category?.data?.name}
                     />
                 </div>
 
                 <div className="mb-6">
                     <label
-                        className=" text-gray-700 text-sm font-bold mb-2 w-44 h-44 outline-dashed outline-2 outline-offset-2 rounded-lg flex items-center justify-center"
+                        className="relative text-gray-700 text-sm font-bold mb-2 w-44 h-44 outline-dashed outline-2 outline-offset-2 rounded-lg flex items-center justify-center"
                         htmlFor="imageUpload"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

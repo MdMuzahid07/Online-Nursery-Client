@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ManageCategory = () => {
     const { data: categories, error, isLoading } = useGetAllCategoryQuery(undefined);
-    const [deleteCategory, { data: deleteData, error: deleteError, isLoading: deleteIsLoading }] = useDeleteACategoryMutation(undefined);
+    const [deleteCategory, { data: deleteData, error: deleteError }] = useDeleteACategoryMutation(undefined);
     const navigate = useNavigate();
 
     if (!categories && !isLoading && error) {
@@ -23,7 +23,10 @@ const ManageCategory = () => {
     }, [deleteError, deleteData]);
 
     const handleDelete = async (id: any) => {
-        await deleteCategory(id);
+        const proceed = window.confirm("Delete the Category?");
+        if (proceed) {
+            await deleteCategory(id);
+        }
     };
 
     const handleUpdate = (id: any) => {

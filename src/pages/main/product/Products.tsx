@@ -1,28 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import ProductCard from "../../../components/product/ProductCard";
+import { useGetAllProductsQuery } from "../../../redux/feature/product/productApi";
 
 const Products = () => {
+    const { data: products } = useGetAllProductsQuery(undefined);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
     const [priceRange, setPriceRange] = useState([0, 100]);
     const [sortOption, setSortOption] = useState("default");
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 6;
-
-    const products = [
-        { _id: 1, title: "Gardening Tool Set", price: 45, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.5 },
-        { _id: 2, title: "Plant Pots", price: 15, category: "Planters", imageUrl: "https://via.placeholder.com/150", rating: 4.0 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        { _id: 3, title: "Outdoor Watering Can", price: 25, category: "Gardening tools", imageUrl: "https://via.placeholder.com/150", rating: 4.7 },
-        // Add more products as needed for demo
-    ];
 
     const categories = ["Gardening tools", "Planters", "Soil", "Seeds", "Outdoor Plants"];
 
@@ -47,14 +35,13 @@ const Products = () => {
     };
 
     // Filter products based on search, category, and price range 
-    const filteredProducts = products
-        .filter(
-            (product) =>
-                product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-                (selectedCategory === "" || product.category === selectedCategory) &&
-                product.price >= priceRange[0] &&
-                product.price <= priceRange[1]
-        )
+    const filteredProducts = products?.data?.filter(
+        (product) =>
+            product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            (selectedCategory === "" || product.category === selectedCategory) &&
+            product.price >= priceRange[0] &&
+            product.price <= priceRange[1]
+    )
         // Sort products based on selected sorting option
         .sort((a, b) => {
             if (sortOption === "priceLowToHigh") {

@@ -1,6 +1,9 @@
+import { useGetAllProductsQuery } from "../../redux/feature/product/productApi";
 import ProductCard from "./ProductCard"
 
 const ProductSearch = () => {
+    const { data: products, error, isLoading } = useGetAllProductsQuery(undefined);
+
     const fakeProduct = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     return (
         <div className="min-w-screen min-h-screen py-44 px-4 lg:px-0 bg-[#E2E6E0]">
@@ -26,7 +29,7 @@ const ProductSearch = () => {
                 </div>
                 <div className="w-full grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5 ">
                     {
-                        fakeProduct?.map(() => <ProductCard />)
+                        products?.data?.map((product) => <ProductCard product={product} />)
                     }
                 </div>
                 <div className="w-full flex justify-end mt-8">

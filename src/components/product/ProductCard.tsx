@@ -10,7 +10,7 @@ const ProductCard = ({ product }: any) => {
 
     return (
         <div className="cursor-pointer border border-white hover:border-green-700 w-full min-h-96  overflow-hidden rounded-lg bg-slate-200 max-h-[410px]">
-            <img className="w-full h-72 object-cover" src="../../../public/slider-3.jpg" alt="" />
+            <img className="w-full h-72 object-cover" src={product?.imageUrl} alt="" />
             <div className="p-4">
                 <p className="text-xs font-semibold text-green-900">Price: {product?.price}</p>
                 <h3 className="text-sm font-bold text-gray-700">Name: {product?.title}</h3>

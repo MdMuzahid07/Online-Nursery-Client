@@ -12,8 +12,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
         <header className="w-full h-20 bg-white sticky top-0 left-0 text-primary border-b px-7 flex justify-between items-center z-20">
             <div className="flex items-center gap-4">
                 <button
-                    className={`${!isSidebarOpen ? "bg-green-900" : "bg-red-500 "
-                        } px-4 py-1 rounded-full border tracking-wider flex items-center gap-2 text-white`}
+                    className={`bg-green-900 px-4 py-1 rounded-full border tracking-wider flex items-center gap-2 text-white`}
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 >
                     {isSidebarOpen ? (

@@ -10,6 +10,8 @@ import ManageCategory from "../pages/dashboard/ManageCategory";
 import AddProduct from "../pages/dashboard/AddProduct";
 import AddCategory from "../pages/dashboard/AddCategory";
 import Payment from "../pages/payment/Payment";
+import UpdateProduct from "../pages/dashboard/UpdateProduct";
+import UpdateCategory from "../pages/dashboard/UpdateCategory";
 
 
 
@@ -59,9 +61,16 @@ const router = createBrowserRouter([
             {
                 path: "manage-category",
                 element: <ManageCategory />
-            }
+            },
+            {
+                path: "update-category/:categoryId",
+                element: <UpdateCategory />
+            },
+            {
+                path: "update-product/:productId",
+                element: <UpdateProduct />
+            },
         ]
-
     }
 ]);
 

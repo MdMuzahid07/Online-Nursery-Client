@@ -1,37 +1,47 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-import { useAddCategoryMutation } from "../../redux/feature/category/categoryApi";
 import { toast } from "sonner";
+import { useUpdateACategoryMutation } from "../../redux/feature/category/categoryApi";
+import { useParams } from "react-router-dom";
 
-const AddCategory = () => {
-    const [addCategory, { data, error, isLoading }] = useAddCategoryMutation();
+
+const UpdateCategory = () => {
+    const [updateACategory, { data, error, isLoading }] = useUpdateACategoryMutation();
     const [categoryName, setCategoryName] = useState<string>('');
     const [file, setFile] = useState<File | null>(null);
 
+    const { categoryId } = useParams();
+
     if (isLoading) {
-        toast.loading("Loading...", { id: "newCategory" });
+        toast.loading("Loading...", { id: "updateCategory1324123" });
     };
 
     if (!data && error) {
-        toast.error("failed to create new category", { id: "newCategory" });
+        toast.error("failed to update category", { id: "updateCategory1324123" });
     };
 
     if (data && data?.success) {
-        toast.success("new category created successfully", { id: "newCategory" });
+        toast.success("category updated successfully", { id: "updateCategory1324123" });
     };
 
 
-    const handleAddCategory = (e: FormEvent<HTMLFormElement>) => {
+    const handleUpdateCategory = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (categoryName && file) {
-            const formData = new FormData();
-            formData.append("data", JSON.stringify({ name: categoryName }));
-            formData.append("categoryImg", file);
-            addCategory(formData);
+        const formData = new FormData();
+
+        if (categoryName) {
+            formData.append("name", categoryName);
         }
-        setCategoryName(" ");
+        if (file) {
+            formData.append("categoryImg", file);
+        }
+
+        updateACategory({ id: categoryId, data: formData });
+
+        setCategoryName("");
         setFile(null);
     };
+
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -39,10 +49,11 @@ const AddCategory = () => {
         }
     };
 
+
     return (
         <div className="pt-32 max-w-3xl mx-auto">
-            <h1 className="text-2xl lg:text-5xl font-bold text-green-900 mb-8">Add Category</h1>
-            <form onSubmit={handleAddCategory}>
+            <h1 className="text-2xl lg:text-5xl font-bold text-green-900 mb-8">Update Category</h1>
+            <form onSubmit={handleUpdateCategory}>
                 <div className="mb-6">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -57,8 +68,7 @@ const AddCategory = () => {
                         value={categoryName}
                         onChange={(e) => setCategoryName(e.target.value)}
                         className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter category name"
-                        required
+                        placeholder="write here"
                     />
                 </div>
 
@@ -79,7 +89,6 @@ const AddCategory = () => {
                         name="categoryImg"
                         onChange={handleFileChange}
                         className="w-full text-gray-700 hidden"
-                        required
                     />
                 </div>
 
@@ -87,11 +96,11 @@ const AddCategory = () => {
                     type="submit"
                     className="bg-green-900 w-44 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline hover:bg-green-600 transition duration-200"
                 >
-                    Add Category
+                    Update Category
                 </button>
             </form>
         </div>
     );
 }
 
-export default AddCategory;
+export default UpdateCategory

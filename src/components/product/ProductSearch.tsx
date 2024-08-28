@@ -29,7 +29,7 @@ const ProductSearch = () => {
                 </div>
                 <div className="w-full grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5 ">
                     {
-                        products?.data?.map((product) => <ProductCard product={product} />)
+                        products?.data?.map((product) => <ProductCard key={product?._id} product={product} />)
                     }
                 </div>
                 <div className="w-full flex justify-end mt-8">

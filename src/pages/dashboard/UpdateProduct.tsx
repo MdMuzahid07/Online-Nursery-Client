@@ -36,13 +36,13 @@ const UpdateProduct = () => {
         e.preventDefault();
 
         const productData = {
-            title: e.target.title.value,
-            description: e.target.description.value,
-            price: Number(e.target.price.value),
-            quantity: Number(e.target.quantity.value),
-            rating: Number(e.target.rating.value),
-            stock: Number(e.target.stock.value),
-            category: productCategory
+            title: e.target.title.value || product?.data?.title,
+            description: e.target.description.value || product?.data?.description,
+            price: Number(e.target.price.value || product?.data?.price),
+            quantity: Number(e.target.quantity.value || product?.data?.quantity),
+            rating: Number(e.target.rating.value || product?.data?.rating),
+            stock: Number(e.target.stock.value || product?.data?.stock),
+            category: productCategory || product?.data?.category?._id
         };
 
         const formData = new FormData();

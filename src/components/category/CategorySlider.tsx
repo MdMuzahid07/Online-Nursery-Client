@@ -70,7 +70,7 @@ const CategorySlider = () => {
                     >
                         {
                             categories?.data?.map((category: any) => (
-                                <SwiperSlide>
+                                <SwiperSlide key={category?._id}>
                                     <Card category={category} />
                                 </SwiperSlide>
                             ))

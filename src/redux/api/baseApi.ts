@@ -6,4 +6,4 @@ export const baseApi = createApi({
     reducerPath: 'pokemonApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/v1/' }),
     endpoints: () => ({})
-})
+});

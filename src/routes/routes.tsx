@@ -9,7 +9,7 @@ import ManageProduct from "../pages/dashboard/ManageProduct";
 import ManageCategory from "../pages/dashboard/ManageCategory";
 import AddProduct from "../pages/dashboard/AddProduct";
 import AddCategory from "../pages/dashboard/AddCategory";
-import Payment from "../pages/main/home/payment/Payment";
+import Payment from "../pages/payment/Payment";
 
 
 

@@ -10,8 +10,6 @@ const AddProduct = () => {
     const [file, setFile] = useState<File | null>(null);
     const [productCategory, setProductCategory] = useState();
 
-    console.log(error)
-
 
     if (isLoading) {
         toast.loading("Loading...", { id: "newProduct" });

@@ -55,10 +55,10 @@ const Products = () => {
         });
 
     // Pagination logic
-    const totalProducts = filteredProducts.length;
+    const totalProducts = filteredProducts?.length;
 
-    const totalPages = Math.ceil(totalProducts / productsPerPage);
-    const paginatedProducts = filteredProducts.slice(
+    const totalPages = Math?.ceil(totalProducts / productsPerPage);
+    const paginatedProducts = filteredProducts?.slice(
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
     );

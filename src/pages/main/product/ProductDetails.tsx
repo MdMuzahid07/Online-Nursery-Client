@@ -4,36 +4,80 @@ import ProductCard from "../../../components/product/ProductCard";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from "react-router-dom";
-import { useGetAllProductsQuery, useGetASingleProductQuery } from "../../../redux/feature/product/productApi";
+import { useGetAllProductsQuery, useGetASingleProductQuery, useUpdateAProductMutation } from "../../../redux/feature/product/productApi";
+import { useGetASingleCategoryQuery } from "../../../redux/feature/category/categoryApi";
+import { useAddReviewMutation, useGetAllReviewsQuery } from "../../../redux/feature/review/reviewApi";
+import { toast } from "sonner";
 
 const ProductDetails = () => {
+    const [reviewSter, setReviewSter] = useState(3);
     const { productId } = useParams();
     const { data: product } = useGetASingleProductQuery(productId);
     const { data: allProducts } = useGetAllProductsQuery(productId);
+    const categoryId = product?.data?.category;
+    const [updateAProduct, { data: productUpdate, isLoading: productUpdateLoading, error: productUpdateError }] = useUpdateAProductMutation();
+    const [addReview, { data, isLoading, error }] = useAddReviewMutation();
+    const { data: category } = useGetASingleCategoryQuery(categoryId);
+    const { data: reviews } = useGetAllReviewsQuery(undefined);
 
-
-
-    const [reviews, setReviews] = useState([
-        { name: 'john', rating: 5, comment: 'Great product! Highly recommended.' },
-        { name: 'Doe', rating: 4, comment: 'Very good quality, but could use more tools.' },
-        { name: 'Doe', rating: 4, comment: 'Very good quality, but could use more tools.' },
-        { name: 'Doe', rating: 4, comment: 'Very good quality, but could use more tools.' },
-        { name: 'Doe', rating: 4, comment: 'Very good quality, but could use more tools.' },
-    ]);
-
-    const [newReview, setNewReview] = useState({ name: '', rating: 5, comment: '' });
-
-    const handleReviewSubmit = (e: any) => {
-        e.preventDefault();
-        setReviews([...reviews, newReview]);
-        setNewReview({ name: '', rating: 5, comment: '' });
+    if (isLoading) {
+        toast.loading("Loading...", { id: "review" });
     };
+
+    if (!data && error) {
+        toast.error("failed to give a review, try again", { id: "review" });
+    };
+
+    if (data && data?.success) {
+        toast.success("new review added successfully", { id: "review" });
+    };
+
+    if (productUpdateLoading) {
+        toast.loading("Loading...", { id: "reviewUpdatedToProduct" });
+    };
+
+    if (!productUpdate && productUpdateError) {
+        toast.error("failed to add review on this product, try again", { id: "reviewUpdatedToProduct" });
+    };
+
+    if (productUpdate && productUpdate?.success) {
+        toast.success("review added successfully for this product", { id: "reviewUpdatedToProduct" });
+    };
+
+
+    const handleReviewSubmit = async (e: any) => {
+        e.preventDefault();
+        const reviewData = {
+            name: e.target.name.value,
+            rating: Number(reviewSter),
+            comment: e.target.comment.value,
+        };
+
+        const { data } = await addReview(reviewData);
+
+        if (data && data?.success) {
+            const reviewId = data?.data?._id;
+
+            const productData = {
+                rating: [...product?.data?.rating, reviewId],
+            };
+
+            const formData = new FormData();
+            formData.append('data', JSON.stringify(productData));
+
+            updateAProduct({ id: productId, data: formData });
+        }
+    };
+
+
+    const handleReviewStarOnChange = (e: any) => {
+        setReviewSter(e.target.value);
+    };
+
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" })
     });
-
-    console.log(product?.data)
 
     return (
         <div className="bg-[#E2E6E0] min-h-screen">
@@ -56,11 +100,11 @@ const ProductDetails = () => {
                         <div className="col-span-2 flex flex-col justify-between">
                             <div>
                                 <h1 className="text-3xl font-bold text-green-900 mb-2">{product?.data?.title}</h1>
-                                <p className="text-green-900 text-lg">Category: {product?.data?.category.name}</p>
+                                <p className="text-green-900 text-lg">Category: {category?.data?.name}</p>
                             </div>
                             <div className="mb-4">
                                 <p className="text-4xl font-semibold text-green-900 mb-2">${product?.data?.price}</p>
-                                <p className="text-yellow-500 text-lg">Rating: {product?.data?.rating} ★</p>
+                                <p className="text-yellow-500 text-lg">Rating: 4.5</p>
                             </div>
                             <div className="mb-4">
                                 {product?.data?.stock > 0 ? (
@@ -85,19 +129,18 @@ const ProductDetails = () => {
                         <p className="text-green-900">{product?.data?.description}</p>
                     </div>
 
-                    {/* Review Section */}
+                    {/* review section  */}
                     <div className="mt-16">
                         <h2 className="text-xl font-semibold text-green-900 mb-4">Reviews</h2>
                         <div className="grid md:grid-cols-2 gap-4">
-                            {reviews.map((review, index) => (
+                            {reviews?.data?.map((review, index) => (
                                 <div key={index} className="bg-white p-4 rounded-lg">
-                                    <p className="font-semibold">{review.name}</p>
-                                    <p className="text-yellow-500">{'★'.repeat(review.rating)}</p>
-                                    <p className="text-green-900">{review.comment}</p>
+                                    <p className="font-semibold">{review?.name}</p>
+                                    <p className="text-yellow-500">{'★'?.repeat(review?.rating)}</p>
+                                    <p className="text-green-900">{review?.comment}</p>
                                 </div>
                             ))}
                         </div>
-
                         {/* Review Form */}
                         <div className="mt-10">
                             <h3 className="text-lg font-semibold text-green-900 mb-4">Leave a Review</h3>
@@ -106,18 +149,16 @@ const ProductDetails = () => {
                                     <label className="block text-green-900">Name</label>
                                     <input
                                         type="text"
+                                        name="name"
                                         className="w-full border px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-900"
-                                        value={newReview.name}
-                                        onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label className="block text-green-900">Rating</label>
                                     <select
+                                        onChange={handleReviewStarOnChange}
                                         className="w-full border px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-900"
-                                        value={newReview.rating}
-                                        onChange={(e) => setNewReview({ ...newReview, rating: Number(e.target.value) })}
                                     >
                                         {[1, 2, 3, 4, 5].map((star) => (
                                             <option key={star} value={star}>
@@ -131,8 +172,7 @@ const ProductDetails = () => {
                                     <textarea
                                         className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-900"
                                         rows={4}
-                                        value={newReview.comment}
-                                        onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                                        name="comment"
                                         required
                                     />
                                 </div>
@@ -152,7 +192,7 @@ const ProductDetails = () => {
                 {/* Related Products Section */}
                 <div className="mt-44">
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 text-green-900">Related category</h1>
-                    <div className="w-full grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
+                    <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                         {allProducts?.data?.map((product) => (
                             <ProductCard product={product} />
                         ))}

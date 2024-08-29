@@ -27,7 +27,7 @@ const ProductSearch = () => {
                         </select>
                     </div>
                 </div>
-                <div className="w-full grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5 ">
+                <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                     {
                         products?.data?.map((product) => <ProductCard key={product?._id} product={product} />)
                     }

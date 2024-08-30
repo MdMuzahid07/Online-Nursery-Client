@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllProductsQuery } from "../../redux/feature/product/productApi";
 import ProductCard from "./ProductCard"
 
 const ProductSearch = () => {
-    const { data: products, error, isLoading } = useGetAllProductsQuery(undefined);
+    const { data: products } = useGetAllProductsQuery(undefined);
 
     const fakeProduct = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     return (
@@ -29,7 +30,7 @@ const ProductSearch = () => {
                 </div>
                 <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                     {
-                        products?.data?.map((product) => <ProductCard key={product?._id} product={product} />)
+                        products?.data?.slice(0, 10)?.map((product: any) => <ProductCard key={product?._id} product={product} />)
                     }
                 </div>
                 <div className="w-full flex justify-end mt-8">

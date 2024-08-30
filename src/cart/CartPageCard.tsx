@@ -1,27 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 
-const CartPageCard = () => {
-    // return (
-    // <div className="flex gap-3 relative bg-slate-100 border hover:border-green-900 p-4 rounded-lg mb-4">
-    //     <img className="w-28 border drop-shadow-sm h-28 object-cover rounded-lg" src="../../public/slider-2.jpg" alt="" />
-    //     <div className="py-1">
-    //         <h1 className="text-md">Product Name</h1>
-    //         <div className="flex items-center gap-2">
-    //             <div className="flex items-center justify-center gap-1 border rounded-full px-2 w-16">
-    //                 <button>-</button>
-    //                 <p className="px-2">{1}</p>
-    //                 <button>+</button>
-    //             </div>
-    //             <p className="text-xs">$15.00</p>
-    //         </div>
-    //     </div>
-    //     <button className="absolute top-4 right-0 w-10 h-10">
-    //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
-    //             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-    //         </svg>
-    //     </button>
-    // </div>
+const CartPageCard = ({ product }: any) => {
     const [count, setCount] = useState(1);
+
 
     const handleCounter = (value) => {
         if (value === "increment") {
@@ -31,15 +13,16 @@ const CartPageCard = () => {
         }
     };
 
+
     return (
-        <div className="border bg-white rounded-lg overflow-hidden w-full hover:border-green-900 ease-in-out duration-300 mb-4 grid grid-cols-9 gap-2">
+        <div className="border-t py-7 bg-white overflow-hidden w-full grid grid-cols-9 gap-2">
             <div className="col-span-3 w-full h-full">
-                <img src="../../public/slider-3.jpg" alt="" />
+                <img src={product?.imageUrl} alt="" />
             </div>
             <div className="col-span-6 relative pl-0 p-4">
 
-                <h1 className="text-md font-semibold">Name: The cap cut, lorem ipsum</h1>
-                <p className="text-xs text-slate-500">Category: Red</p>
+                <h1 className="text-md font-semibold">Name: {product?.title}</h1>
+                <p className="text-xs text-slate-500">Category: {product?.category?.name}</p>
 
                 <div className="absolute left-0 bottom-2 flex items-center justify-between w-full">
 

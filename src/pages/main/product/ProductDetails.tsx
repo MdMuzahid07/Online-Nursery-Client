@@ -20,7 +20,10 @@ const ProductDetails = () => {
     const [updateAProduct, { data: productUpdate, isLoading: productUpdateLoading, error: productUpdateError }] = useUpdateAProductMutation();
     const [addReview, { data, isLoading, error }] = useAddReviewMutation();
     const { data: category } = useGetASingleCategoryQuery(categoryId);
-    // const { data: reviews } = useGetAllReviewsQuery(undefined);
+
+    const filterProductCategoryWise = allProducts?.data?.filter((product: any) => product?.category?.name === category?.data?.name);
+
+
     if (isLoading) {
         toast.loading("Loading...", { id: "review" });
     };
@@ -73,10 +76,6 @@ const ProductDetails = () => {
     const handleReviewStarOnChange = (e: any) => {
         setReviewSter(e.target.value);
     };
-
-
-    console.log(product?.data?.rating, "+++++++++++++++++++++++🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
-
 
     return (
         <div className="bg-[#E2E6E0] min-h-screen">
@@ -191,7 +190,7 @@ const ProductDetails = () => {
                 <div className="mt-44">
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 text-green-900">Related category</h1>
                     <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
-                        {allProducts?.data?.map((product: any) => (
+                        {filterProductCategoryWise?.slice(0, 5)?.map((product: any) => (
                             <ProductCard key={product?._id} product={product} />
                         ))}
                     </div>

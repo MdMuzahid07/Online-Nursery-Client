@@ -2,12 +2,14 @@
 import { useNavigate } from "react-router-dom"
 import Dropdown from "../components/ui/Dropdown"
 import CartCard from "./CartCard"
+import { useAppSelector } from "../redux/hooks";
 
 const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
     const navigate = useNavigate();
+    const cartProducts = useAppSelector((state) => state.cart.products)
 
     const handleCart = () => {
-        navigate("/cart");
+        navigate("/checkout-cart");
         setCartDrop(false);
     };
     const handleCheckout = () => {
@@ -28,7 +30,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
             </h1>
             <div className="overflow-y-scroll h-[470px]">
                 {
-                    [0, 1, 2, 3, 4]?.map((cart) => <CartCard key={cart} />)
+                    cartProducts?.map((product) => <CartCard product={product} key={product?._id} />)
                 }
             </div>
             <div className="flex justify-between items-center gap-2 bottom-0 pt-3">

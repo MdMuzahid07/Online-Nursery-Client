@@ -1,13 +1,29 @@
 import { useNavigate } from "react-router-dom"
 import CartPageCard from "../../cart/CartPageCard"
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { clearCart } from "../../redux/feature/cart/CartSlice";
+import CategorySlider from "../../components/category/CategorySlider";
 
 const CheckoutCart = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const cartProducts = useAppSelector((state) => state.cart.products);
+
 
     const handleCheckout = () => {
         navigate("/payment")
     };
+
+
+
+    const handleClearCart = () => {
+        const proceed = window.confirm("clear cart products?");
+        if (proceed) {
+            dispatch(clearCart());
+        }
+    };
+
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -23,9 +39,11 @@ const CheckoutCart = () => {
                     <div className="lg:col-span-5">
                         <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-green-900">My Cart</h1>
                         <div className=" border-t border-green-900 mt-7">
-                            <div className="overflow-y-scroll h-[600px] mt-7">
+                            <div className="overflow-y-scroll h-[600px] mt-7 bg-white px-4">
                                 {
-                                    [0, 1, 2, 3, 4, 5]?.map(() => <CartPageCard />)
+                                    cartProducts.length > 0 ? cartProducts?.map((product) => <CartPageCard key={product?._id} product={product} />) : <div className="flex items-center justify-center h-full">
+                                        <p className=" text-2xl text-green-900">Add items to your cart to continue your purchase.</p>
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -56,7 +74,7 @@ const CheckoutCart = () => {
                                 <p className="text-lg  flex justify-between items-center  py-1 px-2"><span className="font-bold text-green-900">Grad Total  :</span> <span className="font-bold">$100</span></p>
 
                                 <div className="mt-7 flex items-center gap-4">
-                                    <button className="px-4 py-1 border rounded-full bg-white text-green-900 hover:text-white hover:bg-red-500">Clear All</button>
+                                    <button onClick={handleClearCart} className="px-4 py-1 border rounded-full bg-white text-green-900 hover:text-white hover:bg-red-500">Clear All</button>
                                     <button onClick={() => handleCheckout()} className="px-4 py-1 border rounded-full bg-green-900 text-white hover:font-bold w-32">Checkout</button>
                                 </div>
                             </div>

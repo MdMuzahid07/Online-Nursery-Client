@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore } from "@reduxjs/toolkit"
 import { baseApi } from "./api/baseApi"
+import { cartSlice } from "./feature/cart/CartSlice"
 
 export const store = configureStore({
     reducer: {
+        cart: cartSlice.reducer,
         [baseApi.reducerPath]: baseApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

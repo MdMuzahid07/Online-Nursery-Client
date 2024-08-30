@@ -11,7 +11,7 @@ const UserDropdown = ({ userDrop }: any) => {
             <h1 className="text-3xl font-bold">Hello, User</h1>
             <ul className="mt-5">
                 <li>
-                    <Link to="/dashboard" className="text-lg hover:text-red">
+                    <Link to="/dashboard/add-product" className="text-lg hover:text-red">
                         Dashboard
                     </Link>
                 </li>

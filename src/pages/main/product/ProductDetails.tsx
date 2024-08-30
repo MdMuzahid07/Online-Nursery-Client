@@ -9,6 +9,7 @@ import { useGetASingleCategoryQuery } from "../../../redux/feature/category/cate
 import { useAddReviewMutation } from "../../../redux/feature/review/reviewApi";
 import { toast } from "sonner";
 import ReviewCard from "./ReviewCard";
+// import ReviewCard from "./ReviewCard";
 
 const ProductDetails = () => {
     const [reviewSter, setReviewSter] = useState(3);
@@ -74,7 +75,7 @@ const ProductDetails = () => {
     };
 
 
-    console.log(product?.data?.rating)
+    console.log(product?.data?.rating, "+++++++++++++++++++++++🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
 
 
     return (
@@ -135,7 +136,7 @@ const ProductDetails = () => {
                         <h2 className="text-xl font-semibold text-green-900 mb-4">Reviews</h2>
                         <div className="grid md:grid-cols-2 gap-4">
                             {
-                                product?.data?.rating?.map((review: any) => <ReviewCard review={review} />)
+                                product?.data?.rating?.map((review: any) => < ReviewCard review={review} />)
                             }
                         </div>
                         {/* Review Form */}

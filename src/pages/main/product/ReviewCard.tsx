@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const ReviewCard = ({ review }: any) => {
-    console.log(review, "review card")
+    // console.log(review, "review card")
+
     return (
         <div key={review?._id} className="bg-white p-4 rounded-lg">
             <p className="font-semibold">{review?.name}</p>

@@ -49,9 +49,10 @@ const Products = () => {
                 return a?.price - b?.price;
             } else if (sortOption === "priceHighToLow") {
                 return b?.price - a?.price;
-            } else if (sortOption === "rating") {
-                return b?.rating - a?.rating;
             }
+            // else if (sortOption === "rating") {
+            //     return b?.rating - a?.rating;
+            // }
             return 0;
         });
 

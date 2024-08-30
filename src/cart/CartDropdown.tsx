@@ -28,7 +28,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
             </h1>
             <div className="overflow-y-scroll h-[470px]">
                 {
-                    [0, 1, 2, 3, 4]?.map(() => <CartCard />)
+                    [0, 1, 2, 3, 4]?.map((cart) => <CartCard key={cart} />)
                 }
             </div>
             <div className="flex justify-between items-center gap-2 bottom-0 pt-3">

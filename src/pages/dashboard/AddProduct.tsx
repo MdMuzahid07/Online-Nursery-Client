@@ -4,11 +4,23 @@ import { useGetAllCategoryQuery } from "../../redux/feature/category/categoryApi
 import { useAddProductMutation } from "../../redux/feature/product/productApi";
 import { toast } from "sonner";
 
+
+// interface TProductData {
+//     title: string;
+//     description: string;
+//     price: number;
+//     quantity: number;
+//     stock: number;
+//     category: string;
+// }
+
 const AddProduct = () => {
     const { data: categories } = useGetAllCategoryQuery(undefined);
     const [addProduct, { data, isLoading, error }] = useAddProductMutation();
     const [file, setFile] = useState<File | null>(null);
     const [productCategory, setProductCategory] = useState();
+    console.log(error)
+    console.log(productCategory, "iddddddddddddddddddddddddddd")
 
 
     if (isLoading) {
@@ -31,13 +43,16 @@ const AddProduct = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // destructure the form elements
+        const formValues = e.target as HTMLFormElement;
+        const { title, description, price, quantity, stock } = formValues.elements as any;
+
         const productData = {
-            title: e.target.title.value,
-            description: e.target.description.value,
-            price: Number(e.target.price.value),
-            quantity: Number(e.target.quantity.value),
-            rating: Number(e.target.rating.value),
-            stock: Number(e.target.stock.value),
+            title: title.value,
+            description: description.value,
+            price: Number(price.value),
+            quantity: Number(quantity.value),
+            stock: Number(stock.value),
             category: productCategory
         };
 
@@ -84,7 +99,7 @@ const AddProduct = () => {
                 <div>
                     <label className="block text-green-900 text-lg">Price</label>
                     <input
-                        type="number"
+                        type="text"
                         name="price"
                         required
                         placeholder="product price"
@@ -103,7 +118,7 @@ const AddProduct = () => {
                     />
                 </div>
 
-                <div>
+                {/* <div>
                     <label className="block text-green-900 text-lg">Rating</label>
                     <input
                         type="number"
@@ -113,7 +128,7 @@ const AddProduct = () => {
                         placeholder="product rating"
                         className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
                     />
-                </div>
+                </div> */}
 
                 <div>
                     <label className="block text-green-900 text-lg">Stock</label>
@@ -134,8 +149,8 @@ const AddProduct = () => {
                         required
                         className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
                     >
-                        <option value="" disabled>
-                            Select Category
+                        <option value="" disabled selected>
+                            Select a category
                         </option>
                         {categories?.data?.map((category: any) => (
                             <option key={category._id} value={category._id}>

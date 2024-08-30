@@ -24,13 +24,17 @@ const AddCategory = () => {
         e.preventDefault();
 
         if (categoryName && file) {
+
             const formData = new FormData();
+
             formData.append("data", JSON.stringify({ name: categoryName }));
             formData.append("categoryImg", file);
+
             addCategory(formData);
+
+            setCategoryName(" ");
+            setFile(null);
         }
-        setCategoryName(" ");
-        setFile(null);
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "../../../components/product/ProductCard";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from "react-router-dom";
 import { useGetAllProductsQuery, useGetASingleProductQuery, useUpdateAProductMutation } from "../../../redux/feature/product/productApi";
 import { useGetASingleCategoryQuery } from "../../../redux/feature/category/categoryApi";
-import { useAddReviewMutation, useGetAllReviewsQuery } from "../../../redux/feature/review/reviewApi";
+import { useAddReviewMutation } from "../../../redux/feature/review/reviewApi";
 import { toast } from "sonner";
+import ReviewCard from "./ReviewCard";
 
 const ProductDetails = () => {
     const [reviewSter, setReviewSter] = useState(3);
@@ -18,8 +19,7 @@ const ProductDetails = () => {
     const [updateAProduct, { data: productUpdate, isLoading: productUpdateLoading, error: productUpdateError }] = useUpdateAProductMutation();
     const [addReview, { data, isLoading, error }] = useAddReviewMutation();
     const { data: category } = useGetASingleCategoryQuery(categoryId);
-    const { data: reviews } = useGetAllReviewsQuery(undefined);
-
+    // const { data: reviews } = useGetAllReviewsQuery(undefined);
     if (isLoading) {
         toast.loading("Loading...", { id: "review" });
     };
@@ -69,15 +69,13 @@ const ProductDetails = () => {
         }
     };
 
-
     const handleReviewStarOnChange = (e: any) => {
         setReviewSter(e.target.value);
     };
 
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-    });
+    console.log(product?.data?.rating)
+
 
     return (
         <div className="bg-[#E2E6E0] min-h-screen">
@@ -89,18 +87,21 @@ const ProductDetails = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                         <div className="col-span-3 flex justify-center items-center">
-                            <Zoom>
-                                <img
-                                    src={product?.data?.imageUrl}
-                                    alt={product?.data?.title}
-                                    className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-lg"
-                                />
-                            </Zoom>
+                            <div className="w-full">
+                                <Zoom>
+                                    <img
+                                        src={product?.data?.imageUrl}
+                                        alt={product?.data?.title}
+                                        className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-lg"
+                                    />
+                                </Zoom>
+                            </div>
                         </div>
                         <div className="col-span-2 flex flex-col justify-between">
                             <div>
                                 <h1 className="text-3xl font-bold text-green-900 mb-2">{product?.data?.title}</h1>
                                 <p className="text-green-900 text-lg">Category: {category?.data?.name}</p>
+                                <p className="text-green-900 text-lg">Minimum Buy: {product?.data?.quantity} Quantity</p>
                             </div>
                             <div className="mb-4">
                                 <p className="text-4xl font-semibold text-green-900 mb-2">${product?.data?.price}</p>
@@ -133,13 +134,9 @@ const ProductDetails = () => {
                     <div className="mt-16">
                         <h2 className="text-xl font-semibold text-green-900 mb-4">Reviews</h2>
                         <div className="grid md:grid-cols-2 gap-4">
-                            {reviews?.data?.map((review, index) => (
-                                <div key={index} className="bg-white p-4 rounded-lg">
-                                    <p className="font-semibold">{review?.name}</p>
-                                    <p className="text-yellow-500">{'★'?.repeat(review?.rating)}</p>
-                                    <p className="text-green-900">{review?.comment}</p>
-                                </div>
-                            ))}
+                            {
+                                product?.data?.rating?.map((review: any) => <ReviewCard review={review} />)
+                            }
                         </div>
                         {/* Review Form */}
                         <div className="mt-10">
@@ -160,7 +157,7 @@ const ProductDetails = () => {
                                         onChange={handleReviewStarOnChange}
                                         className="w-full border px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-900"
                                     >
-                                        {[1, 2, 3, 4, 5].map((star) => (
+                                        {[1, 2, 3, 4, 5]?.map((star) => (
                                             <option key={star} value={star}>
                                                 {star} ★
                                             </option>
@@ -193,8 +190,8 @@ const ProductDetails = () => {
                 <div className="mt-44">
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 text-green-900">Related category</h1>
                     <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
-                        {allProducts?.data?.map((product) => (
-                            <ProductCard product={product} />
+                        {allProducts?.data?.map((product: any) => (
+                            <ProductCard key={product?._id} product={product} />
                         ))}
                     </div>
                 </div>

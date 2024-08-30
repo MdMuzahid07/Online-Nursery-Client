@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../../components/product/ProductCard";
 import { useGetAllProductsQuery } from "../../../redux/feature/product/productApi";
+import { useGetAllCategoryQuery } from "../../../redux/feature/category/categoryApi";
 
 const Products = () => {
     const { data: products } = useGetAllProductsQuery(undefined);
+    const { data: categories } = useGetAllCategoryQuery(undefined);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
     const [priceRange, setPriceRange] = useState([0, 100]);
@@ -12,7 +14,6 @@ const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 6;
 
-    const categories = ["Gardening tools", "Planters", "Soil", "Seeds", "Outdoor Plants"];
 
     const handleSearch = (e: any) => {
         setSearchQuery(e.target.value);
@@ -36,20 +37,20 @@ const Products = () => {
 
     // Filter products based on search, category, and price range 
     const filteredProducts = products?.data?.filter(
-        (product) =>
-            product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            (selectedCategory === "" || product.category === selectedCategory) &&
-            product.price >= priceRange[0] &&
-            product.price <= priceRange[1]
+        (product: any) =>
+            product?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase()) &&
+            (selectedCategory === "" || product?.category?.name === selectedCategory) &&
+            product?.price >= priceRange[0] &&
+            product?.price <= priceRange[1]
     )
         // Sort products based on selected sorting option
-        .sort((a, b) => {
+        .sort((a: any, b: any) => {
             if (sortOption === "priceLowToHigh") {
-                return a.price - b.price;
+                return a?.price - b?.price;
             } else if (sortOption === "priceHighToLow") {
-                return b.price - a.price;
+                return b?.price - a?.price;
             } else if (sortOption === "rating") {
-                return b.rating - a.rating;
+                return b?.rating - a?.rating;
             }
             return 0;
         });
@@ -98,9 +99,9 @@ const Products = () => {
                                 onChange={handleCategoryChange}
                             >
                                 <option value="">All Categories</option>
-                                {categories?.map((category) => (
-                                    <option key={category} value={category}>
-                                        {category}
+                                {categories?.data?.map((category: any) => (
+                                    <option key={category?._id} value={category?._name}>
+                                        {category?.name}
                                     </option>
                                 ))}
                             </select>
@@ -140,7 +141,7 @@ const Products = () => {
                     {/* Product Cards Section */}
                     <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {paginatedProducts?.length > 0 ? (
-                            paginatedProducts?.map((product) => (
+                            paginatedProducts?.map((product: any) => (
                                 <ProductCard product={product} />
                             ))
                         ) : (

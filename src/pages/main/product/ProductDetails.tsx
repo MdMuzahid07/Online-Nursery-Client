@@ -59,7 +59,7 @@ const ProductDetails = () => {
             const reviewId = data?.data?._id;
 
             const productData = {
-                rating: [...product?.data?.rating, reviewId],
+                rating: [...(product?.data?.rating || []), reviewId],
             };
 
             const formData = new FormData();

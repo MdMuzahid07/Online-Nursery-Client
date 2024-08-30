@@ -5,22 +5,21 @@ import { useAddProductMutation } from "../../redux/feature/product/productApi";
 import { toast } from "sonner";
 
 
-// interface TProductData {
-//     title: string;
-//     description: string;
-//     price: number;
-//     quantity: number;
-//     stock: number;
-//     category: string;
-// }
+interface TProductData {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    stock: number;
+    category: string;
+}
 
 const AddProduct = () => {
     const { data: categories } = useGetAllCategoryQuery(undefined);
     const [addProduct, { data, isLoading, error }] = useAddProductMutation();
     const [file, setFile] = useState<File | null>(null);
-    const [productCategory, setProductCategory] = useState();
+    const [productCategory, setProductCategory] = useState("");
     console.log(error)
-    console.log(productCategory, "iddddddddddddddddddddddddddd")
 
 
     if (isLoading) {
@@ -35,7 +34,7 @@ const AddProduct = () => {
         toast.success("new product created successfully", { id: "newProduct" });
     };
 
-
+    // handling image upload as an file
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFile(e.target.files?.[0] || null);
     };
@@ -47,7 +46,7 @@ const AddProduct = () => {
         const formValues = e.target as HTMLFormElement;
         const { title, description, price, quantity, stock } = formValues.elements as any;
 
-        const productData = {
+        const productData: TProductData = {
             title: title.value,
             description: description.value,
             price: Number(price.value),
@@ -56,6 +55,7 @@ const AddProduct = () => {
             category: productCategory
         };
 
+        // creating an form data
         const formData = new FormData();
 
         if (file && productData) {
@@ -63,12 +63,21 @@ const AddProduct = () => {
             formData.append('data', JSON.stringify(productData));
         }
 
-        addProduct(formData);
+        // sending product data to rtk query
+        addProduct(formData).then(() => {
+
+            // resetting formValue(form) after successfully added the product
+            formValues.reset();
+            setFile(null);
+        });
+
     };
 
-    const handleCategory = (e) => {
+
+    // handling category (object id) selection
+    const handleCategory = (e: any) => {
         setProductCategory(e.target.value)
-    }
+    };
 
     return (
         <div className="py-12">

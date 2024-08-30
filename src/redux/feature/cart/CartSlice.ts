@@ -44,7 +44,15 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addCart: <T extends TProduct>(state: TCartInitialState, action: { payload: T }) => {
-            state.products.push({ ...action.payload, purchaseQuantity: 1 })
+            const isProductExists = state?.products?.find((product) => product?._id === action?.payload?._id);
+            if (!isProductExists) {
+                state.products.push({ ...action.payload, purchaseQuantity: 1 });
+            } else {
+                isProductExists.purchaseQuantity += 1
+            }
+        },
+        removeAProduct: (state, action) => {
+            state.products = state.products.filter((product) => product?._id !== action.payload)
         },
         updateQuantity: (state, action) => {
             state.products.map(product => {
@@ -69,6 +77,6 @@ export const cartSlice = createSlice({
 });
 
 
-export const { addCart, clearCart, updateQuantity } = cartSlice.actions;
+export const { addCart, clearCart, updateQuantity, removeAProduct } = cartSlice.actions;
 
 export default cartSlice.reducer;

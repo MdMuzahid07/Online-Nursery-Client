@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch } from "../redux/hooks";
-import { updateQuantity } from "../redux/feature/cart/CartSlice";
+import { removeAProduct, updateQuantity } from "../redux/feature/cart/CartSlice";
 
 const CartPageCard = ({ product }: any) => {
     const dispatch = useAppDispatch();
@@ -13,6 +13,9 @@ const CartPageCard = ({ product }: any) => {
         dispatch(updateQuantity(payload));
     };
 
+    const handleRemove = (id: string) => {
+        dispatch(removeAProduct(id));
+    };
 
     return (
         <div className="border-t py-7 bg-white overflow-hidden w-full grid grid-cols-9 gap-2">
@@ -35,7 +38,7 @@ const CartPageCard = ({ product }: any) => {
                         </div>
                     </div>
 
-                    <button className="pr-2">
+                    <button onClick={() => handleRemove(product?._id)} className="pr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash" width={14} height={14} viewBox="0 0 24 24" stroke-width={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 7l16 0"></path>

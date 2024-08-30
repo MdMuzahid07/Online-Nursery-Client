@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { updateQuantity } from "../redux/feature/cart/CartSlice";
+import { removeAProduct, updateQuantity } from "../redux/feature/cart/CartSlice";
 import { useAppDispatch } from "../redux/hooks";
 
 const CartCard = ({ product }: any) => {
@@ -12,6 +12,10 @@ const CartCard = ({ product }: any) => {
             id: id
         };
         dispatch(updateQuantity(payload));
+    };
+
+    const handleRemove = (id: string) => {
+        dispatch(removeAProduct(id));
     };
 
 
@@ -29,7 +33,7 @@ const CartCard = ({ product }: any) => {
                     <p className="text-xs">${product?.price}</p>
                 </div>
             </div>
-            <button className="absolute top-4 right-0 w-10 h-10">
+            <button onClick={() => handleRemove(product?._id)} className="absolute top-4 right-0 w-10 h-10">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>

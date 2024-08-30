@@ -1,6 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { updateQuantity } from "../redux/feature/cart/CartSlice";
+import { useAppDispatch } from "../redux/hooks";
+
 const CartCard = ({ product }: any) => {
+    const dispatch = useAppDispatch();
+
+    const handleQuantity = (type: string, id: string) => {
+        const payload = {
+            type: type,
+            id: id
+        };
+        dispatch(updateQuantity(payload));
+    };
+
 
     return (
         <div className="flex gap-2 py-5 border-b relative">
@@ -9,9 +22,9 @@ const CartCard = ({ product }: any) => {
                 <h1 className="text-md">{product?.title}</h1>
                 <div className="flex items-center gap-2">
                     <div className="flex items-center justify-center gap-1 border rounded-full px-2 w-16">
-                        <button>-</button>
-                        <p className="px-2">{1}</p>
-                        <button>+</button>
+                        <button onClickCapture={() => handleQuantity("decrement", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >-</button>
+                        <p className="text-xs">{product?.purchaseQuantity}</p>
+                        <button onClickCapture={() => handleQuantity("increment", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >+</button>
                     </div>
                     <p className="text-xs">${product?.price}</p>
                 </div>

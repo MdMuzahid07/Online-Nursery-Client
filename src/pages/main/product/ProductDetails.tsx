@@ -9,6 +9,8 @@ import { useGetASingleCategoryQuery } from "../../../redux/feature/category/cate
 import { useAddReviewMutation } from "../../../redux/feature/review/reviewApi";
 import { toast } from "sonner";
 import ReviewCard from "./ReviewCard";
+import { useAppDispatch } from "../../../redux/hooks";
+import { addCart } from "../../../redux/feature/cart/CartSlice";
 // import ReviewCard from "./ReviewCard";
 
 const ProductDetails = () => {
@@ -20,6 +22,7 @@ const ProductDetails = () => {
     const [updateAProduct, { data: productUpdate, isLoading: productUpdateLoading, error: productUpdateError }] = useUpdateAProductMutation();
     const [addReview, { data, isLoading, error }] = useAddReviewMutation();
     const { data: category } = useGetASingleCategoryQuery(categoryId);
+    const dispatch = useAppDispatch();
 
     const filterProductCategoryWise = allProducts?.data?.filter((product: any) => product?.category?.name === category?.data?.name);
 
@@ -77,6 +80,11 @@ const ProductDetails = () => {
         setReviewSter(e.target.value);
     };
 
+
+    const handleAddCart = (product: any) => {
+        dispatch(addCart(product))
+    };
+
     return (
         <div className="bg-[#E2E6E0] min-h-screen">
             <div className="h-56 w-full hidden lg:block">
@@ -116,6 +124,7 @@ const ProductDetails = () => {
                             </div>
                             <div>
                                 <button
+                                    onClick={() => handleAddCart(product?.data)}
                                     className="bg-green-900 text-white px-6 py-2 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out"
                                     disabled={product?.data?.stock === 0}
                                 >

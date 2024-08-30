@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useAppDispatch } from "../redux/hooks";
+import { updateQuantity } from "../redux/feature/cart/CartSlice";
 
 const CartPageCard = ({ product }: any) => {
-    const [count, setCount] = useState(1);
+    const dispatch = useAppDispatch();
 
-
-    const handleCounter = (value) => {
-        if (value === "increment") {
-            setCount(count + 1);
-        } else if (value === "decrement" && count > 1) {
-            setCount(count - 1);
-        }
+    const handleQuantity = (type: string, id: string) => {
+        const payload = {
+            type: type,
+            id: id
+        };
+        dispatch(updateQuantity(payload));
     };
 
 
@@ -29,9 +29,9 @@ const CartPageCard = ({ product }: any) => {
                     <div className="flex items-center gap-3">
                         <p className="text-md">$49</p>
                         <div className="border px-2 h-5 flex items-center gap-1 rounded-full">
-                            <button className="text-md w-4 h-4 flex justify-center items-center" onClick={() => handleCounter("decrement")}>-</button>
-                            <p className="text-xs">{count}</p>
-                            <button className="text-md w-4 h-4 flex justify-center items-center" onClick={() => handleCounter("increment")}>+</button>
+                            <button onClickCapture={() => handleQuantity("decrement", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >-</button>
+                            <p className="text-xs">{product?.purchaseQuantity}</p>
+                            <button onClickCapture={() => handleQuantity("increment", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >+</button>
                         </div>
                     </div>
 

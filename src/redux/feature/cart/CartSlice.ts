@@ -13,6 +13,7 @@ interface TProduct {
     createdAt: string;
     updatedAt: string;
     __v: number;
+    purchaseQuantity?: number;
 }
 
 interface TCategory {
@@ -43,7 +44,19 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addCart: <T extends TProduct>(state: TCartInitialState, action: { payload: T }) => {
-            state.products.push({ ...action.payload })
+            state.products.push({ ...action.payload, purchaseQuantity: 1 })
+        },
+        updateQuantity: (state, action) => {
+            state.products.map(product => {
+                if (product._id === action.payload.id) {
+                    if (action.payload.type === "increment") {
+                        product.purchaseQuantity += 1
+                    } else if (action.payload.type === "decrement") {
+                        product.purchaseQuantity -= 1
+                    }
+                }
+                return product;
+            });
         },
         clearCart: (state) => {
             state.products = [];
@@ -56,6 +69,6 @@ export const cartSlice = createSlice({
 });
 
 
-export const { addCart, clearCart } = cartSlice.actions;
+export const { addCart, clearCart, updateQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;

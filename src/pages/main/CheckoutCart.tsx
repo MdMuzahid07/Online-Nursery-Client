@@ -3,7 +3,6 @@ import CartPageCard from "../../cart/CartPageCard"
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearCart } from "../../redux/feature/cart/CartSlice";
-import CategorySlider from "../../components/category/CategorySlider";
 
 const CheckoutCart = () => {
     const navigate = useNavigate();

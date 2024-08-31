@@ -50,13 +50,10 @@ const Products = () => {
             } else if (sortOption === "priceHighToLow") {
                 return b?.price - a?.price;
             }
-            // else if (sortOption === "rating") {
-            //     return b?.rating - a?.rating;
-            // }
             return 0;
         });
 
-    // Pagination logic
+    // Pagination 
     const totalProducts = filteredProducts?.length;
 
     const totalPages = Math?.ceil(totalProducts / productsPerPage);

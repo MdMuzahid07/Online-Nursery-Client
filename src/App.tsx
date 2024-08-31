@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
 import ProductSearch from "./components/product/ProductSearch"
 import Slider from "./components/ui/Slider"
 import MosaicView from "./pages/main/home/MosaicView"
@@ -7,9 +7,9 @@ import CategorySlider from "./components/category/CategorySlider"
 
 const App = () => {
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  });
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <>

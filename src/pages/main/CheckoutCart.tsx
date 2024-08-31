@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import CartPageCard from "../../cart/CartPageCard"
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearCart } from "../../redux/feature/cart/CartSlice";
 
@@ -9,24 +9,31 @@ const CheckoutCart = () => {
     const dispatch = useAppDispatch();
     const cartProducts = useAppSelector((state) => state.cart.products);
 
-
-    const handleCheckout = () => {
-        navigate("/payment")
-    };
-
-
-
     const handleClearCart = () => {
         const proceed = window.confirm("clear cart products?");
         if (proceed) {
             dispatch(clearCart());
         }
     };
+    const handleCheckout = () => {
+        navigate("/payment")
+    };
 
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" })
+    // cart calculation
+    const totalProducts = cartProducts?.length | 0;
+    let cost = 0;
+    cartProducts?.forEach((product) => {
+        cost = Number((cost + Number(product?.price) * Number(product?.purchaseQuantity)).toFixed(2));
     });
+    const discountAmount = Number((cost * 0.05).toFixed(2));
+    const newCost = Number(cost - discountAmount);
+    const tax = Number(discountAmount * 0.5);
+    const shippingCost = Number(cartProducts?.length * 5);
+    const grandTotal = Number((newCost + tax + shippingCost).toFixed(2));
 
     return (
         <div className="bg-[#E2E6E0] w-full h-full">
@@ -53,24 +60,24 @@ const CheckoutCart = () => {
                             <div className="bg-white px-5 py-10 mt-7 rounded-lg">
                                 <ul>
                                     <li className="mb-3 text-md py-1 hover:bg-green-100 px-2 rounded-full flex justify-between items-center">
-                                        <span className="font-bold text-green-900">Total Products  :</span>
-                                        <span>$100</span>
+                                        <span className="font-bold text-green-900">Total Products :</span>
+                                        <span>{totalProducts}</span>
                                     </li>
                                     <li className="mb-3 text-md py-1 hover:bg-green-100 px-2 rounded-full  flex justify-between items-center">
-                                        <span className="font-bold text-green-900">Cost  :</span> <span>$100</span>
+                                        <span className="font-bold text-green-900">Cost  :</span> <span>${cost}</span>
                                     </li>
                                     <li className="mb-3 text-md py-1 hover:bg-green-100 px-2 rounded-full  flex justify-between items-center">
-                                        <span className="font-bold text-green-900">Discount  :</span> <span>$100</span>
+                                        <span className="font-bold text-green-900">Discount  :</span> <span>${discountAmount}</span>
                                     </li>
                                     <li className="mb-3 text-md py-1 hover:bg-green-100 px-2 rounded-full  flex justify-between items-center">
-                                        <span className="font-bold text-green-900">Tax  :</span> <span>$100</span>
+                                        <span className="font-bold text-green-900">Tax  :</span> <span>${tax}</span>
                                     </li>
                                     <li className="mb-3 text-md py-1 hover:bg-green-100 px-2 rounded-full  flex justify-between items-center">
-                                        <span className="font-bold text-green-900">Shipping Cost  :</span> <span>$100</span>
+                                        <span className="font-bold text-green-900">Shipping Cost  :</span> <span>${shippingCost}</span>
                                     </li>
                                 </ul>
                                 <hr className="border-t border-green-900 mt-5 mb-1" />
-                                <p className="text-lg  flex justify-between items-center  py-1 px-2"><span className="font-bold text-green-900">Grad Total  :</span> <span className="font-bold">$100</span></p>
+                                <p className="text-lg  flex justify-between items-center  py-1 px-2"><span className="font-bold text-green-900">Grad Total  :</span> <span className="font-bold">${grandTotal}</span></p>
 
                                 <div className="mt-7 flex items-center gap-4">
                                     <button onClick={handleClearCart} className="px-4 py-1 border rounded-full bg-white text-green-900 hover:text-white hover:bg-red-500">Clear All</button>

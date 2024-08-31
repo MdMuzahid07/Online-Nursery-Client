@@ -48,7 +48,7 @@ export const cartSlice = createSlice({
             if (!isProductExists) {
                 state.products.push({ ...action.payload, purchaseQuantity: 1 });
             } else {
-                isProductExists.purchaseQuantity += 1
+                isProductExists.purchaseQuantity! += 1
             }
         },
         removeAProduct: (state, action) => {
@@ -58,9 +58,9 @@ export const cartSlice = createSlice({
             state.products.map(product => {
                 if (product._id === action.payload.id) {
                     if (action.payload.type === "increment") {
-                        product.purchaseQuantity += 1
+                        product.purchaseQuantity! += 1
                     } else if (action.payload.type === "decrement") {
-                        product.purchaseQuantity -= 1
+                        product.purchaseQuantity! -= 1
                     }
                 }
                 return product;

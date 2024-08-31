@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import ProductCard from "../../../components/product/ProductCard";
 import { useGetAllProductsQuery } from "../../../redux/feature/product/productApi";
 import { useGetAllCategoryQuery } from "../../../redux/feature/category/categoryApi";
@@ -65,9 +65,9 @@ const Products = () => {
         currentPage * productsPerPage
     );
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-    });
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
     return (
         <div className="bg-[#F4F7F6] min-h-screen">

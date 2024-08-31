@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import StripePayment from "./StripePayment";
 
 const Payment = () => {
@@ -59,9 +59,9 @@ const Payment = () => {
         console.log("Form Data: ", formData);
     };
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-    });
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
     return (
         <div className="min-h-screen bg-[#E2E6E0] pb-32 relative">

@@ -18,6 +18,7 @@ const CartCard = ({ product }: any) => {
         dispatch(removeAProduct(id));
     };
 
+    const price = (Number(product?.purchaseQuantity) * Number(product?.price)).toFixed(2);
 
     return (
         <div className="flex gap-2 py-5 border-b relative">
@@ -30,7 +31,7 @@ const CartCard = ({ product }: any) => {
                         <p className="text-xs">{product?.purchaseQuantity}</p>
                         <button onClickCapture={() => handleQuantity("increment", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >+</button>
                     </div>
-                    <p className="text-xs">${product?.price}</p>
+                    <p className="text-xs">${price}</p>
                 </div>
             </div>
             <button onClick={() => handleRemove(product?._id)} className="absolute top-4 right-0 w-10 h-10">

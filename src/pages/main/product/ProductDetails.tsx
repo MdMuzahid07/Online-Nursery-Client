@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import ProductCard from "../../../components/product/ProductCard";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
@@ -84,6 +84,11 @@ const ProductDetails = () => {
     const handleAddCart = (product: any) => {
         dispatch(addCart(product))
     };
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [productId]);
+
 
     return (
         <div className="bg-[#E2E6E0] min-h-screen">

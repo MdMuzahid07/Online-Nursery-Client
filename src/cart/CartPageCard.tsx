@@ -17,6 +17,8 @@ const CartPageCard = ({ product }: any) => {
         dispatch(removeAProduct(id));
     };
 
+    const price = (Number(product?.purchaseQuantity) * Number(product?.price)).toFixed(2);
+
     return (
         <div className="border-t py-7 bg-white overflow-hidden w-full grid grid-cols-9 gap-2">
             <div className="col-span-3 w-full h-full">
@@ -30,7 +32,7 @@ const CartPageCard = ({ product }: any) => {
                 <div className="absolute left-0 bottom-2 flex items-center justify-between w-full">
 
                     <div className="flex items-center gap-3">
-                        <p className="text-md">$49</p>
+                        <p className="text-md">${price}</p>
                         <div className="border px-2 h-5 flex items-center gap-1 rounded-full">
                             <button onClickCapture={() => handleQuantity("decrement", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >-</button>
                             <p className="text-xs">{product?.purchaseQuantity}</p>

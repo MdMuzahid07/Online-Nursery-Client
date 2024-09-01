@@ -31,8 +31,9 @@ const Products = () => {
         setCurrentPage(newPage);
     };
 
-    const handlePriceRangeChange = (e: any) => {
-        setPriceRange([e.target.value[0], e.target.value[1]]);
+
+    const handlePriceRangeChange = (value: number) => {
+        setPriceRange([value, priceRange[1]]);
     };
 
     // Filter products based on search, category, and price range 
@@ -106,16 +107,16 @@ const Products = () => {
                         </div>
                         {/* Price Range Filter */}
                         <div className="mb-6">
-                            <label className="block text-green-900 mb-2">Price Range</label>
+                            <label className="block text-green-900 mb-2">Price Start Range</label>
                             <input
                                 type="range"
                                 min="0"
                                 max="100"
                                 value={priceRange[0]}
-                                onChange={(e) => handlePriceRangeChange([Number(e.target.value), priceRange[1]])}
+                                onChange={(e) => handlePriceRangeChange(Number(e.target.value))}
                                 className="w-full"
                             />
-                            <div className="flex justify-between text-sm text-green-700 mt-2">
+                            <div className="flex justify-between text-sm text-green-900 mt-2">
                                 <span>${priceRange[0]}</span>
                                 <span>${priceRange[1]}</span>
                             </div>

@@ -35,7 +35,7 @@ const UserDropdown = ({ userDrop, setUserDrop }: any) => {
             <ul className="mt-5">
                 <li>
                     <Link to="/dashboard/add-product" className="text-lg hover:text-red">
-                        Dashboard
+                        My Dashboard
                     </Link>
                 </li>
             </ul>

@@ -73,6 +73,10 @@ const ProductDetails = () => {
             formData.append('data', JSON.stringify(productData));
 
             updateAProduct({ id: productId, data: formData });
+
+            e.target.name.value = " ";
+            setReviewSter(3)
+            e.target.comment.value = " ";
         }
     };
 

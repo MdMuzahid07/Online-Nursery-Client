@@ -8,6 +8,7 @@ const reviewApi = baseApi.injectEndpoints({
                 url: "/reviews",
                 method: "GET"
             }),
+            providesTags: ["Review"]
         }),
 
         getASingleReview: builder.query({
@@ -23,6 +24,7 @@ const reviewApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
+            invalidatesTags: ["Review"]
         }),
 
         deleteAReview: builder.mutation({
@@ -30,6 +32,7 @@ const reviewApi = baseApi.injectEndpoints({
                 url: `/reviews/${id}`,
                 method: "DELETE"
             }),
+            invalidatesTags: ["Review"]
         }),
 
         updateAReview: builder.mutation({
@@ -38,6 +41,7 @@ const reviewApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data
             }),
+            invalidatesTags: ["Review"]
         }),
 
     })

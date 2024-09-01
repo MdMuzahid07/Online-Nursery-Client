@@ -4,6 +4,8 @@ import StripePayment from "./StripePayment";
 
 const Payment = () => {
     const [paymentSection, setPaymentSection] = useState(false);
+    const [isStripe, setIsStripe] = useState(false);
+    const [isCod, setIsCod] = useState(false);
 
     // const example = {
     //     cartId: "66c9941b6dc7242ee20586e4",
@@ -70,7 +72,10 @@ const Payment = () => {
                 {
                     !paymentSection && <h1 className="text-3xl font-bold text-green-900 text-center mb-10">Checkout</h1>
                 }{
-                    paymentSection && <h1 className="text-3xl font-bold text-green-900 text-center mb-10">Make Payment with stripe</h1>
+                    paymentSection && <div className="mb-10">
+                        <h1 className="text-3xl font-bold mb-4 text-green-900 text-center ">Complete Your Purchase</h1>
+                        <p className="text-center text-md opacity-75">Choose your preferred payment method to finalize your order, and confirm order</p>
+                    </div>
                 }
                 {!paymentSection && <form onSubmit={handleSubmit}>
                     {/* Customer Information */}
@@ -196,7 +201,26 @@ const Payment = () => {
                 {
                     paymentSection
                     &&
-                    <StripePayment />
+                    <div className="pb-32">
+                        {
+                            isStripe && <StripePayment />
+                        }
+                        <div className="mb-16 flex w-full justify-center items-center">
+                            {
+                                (!isStripe && !isCod) && <button onClick={() => setIsStripe(true)} className="text-xl w-full h-[100px] max-w-[350px] font-bold text-white border px-4 py-2 bg-green-900 rounded-lg">Select Pay with Stripe</button>
+                            }
+                        </div>
+                        <div className="flex w-full justify-center items-center">
+                            {
+                                (!isCod && !isStripe) && <button disabled={isStripe} onClick={() => setIsCod(true)} className="text-xl w-full h-[100px] max-w-[350px] font-bold bg-white border px-4 py-2 text-green-900 rounded-lg">Select Cash On Delivery</button>
+                            }
+                        </div>
+                        {
+                            (isStripe || isCod) && <div className="mb-16 flex w-full justify-center items-center">
+                                <button className="text-xl mt-16 w-full max-w-[350px] font-bold text-white border px-4 py-2 bg-green-900 rounded-full">Confirm Order</button>
+                            </div>
+                        }
+                    </div>
                 }
             </div>
         </div >

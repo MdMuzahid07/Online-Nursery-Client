@@ -8,7 +8,7 @@ const productApi = baseApi.injectEndpoints({
                 url: "/products",
                 method: "GET"
             }),
-            providesTags: ["Product"]
+            providesTags: ["Product", "Review"]
         }),
 
         getASingleProduct: builder.query({
@@ -16,6 +16,7 @@ const productApi = baseApi.injectEndpoints({
                 url: `/products/${id}`,
                 method: "GET"
             }),
+            providesTags: ["Product", "Review"]
         }),
 
         addProduct: builder.mutation({

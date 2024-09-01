@@ -81,7 +81,10 @@ const CheckoutCart = () => {
 
                                 <div className="mt-7 flex items-center gap-4">
                                     <button onClick={handleClearCart} className="px-4 py-1 border rounded-full bg-white text-green-900 hover:text-white hover:bg-red-500">Clear All</button>
-                                    <button onClick={() => handleCheckout()} className="px-4 py-1 border rounded-full bg-green-900 text-white hover:font-bold w-32">Checkout</button>
+                                    <button
+                                        disabled={cartProducts?.length <= 0}
+                                        onClick={() => handleCheckout()} className={`${(cartProducts?.length <= 0) ? "opacity-75" : ""} px-4 py-1 border rounded-full bg-green-900 text-white font-bold w-32`}
+                                    >Checkout</button>
                                 </div>
                             </div>
                         </div>

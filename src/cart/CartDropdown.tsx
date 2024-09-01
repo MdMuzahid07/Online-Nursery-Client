@@ -88,7 +88,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
                 </div>
                 <div className="flex justify-between items-center gap-2 bottom-0 pt-3">
                     <button onClick={() => handleCart()} className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-white hover:text-green-900 bg-green-900 text-white">View Cart</button>
-                    <button onClick={() => handleCheckout()} className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-green-900 hover:text-white">Checkout</button>
+                    <button disabled={cartProducts?.length <= 0} onClick={() => handleCheckout()} className={`${(cartProducts?.length <= 0) ? "opacity-75 hover:bg-green-700" : ""} border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-green-900 hover:text-white`}>Checkout</button>
                 </div>
             </Dropdown>
         </div>

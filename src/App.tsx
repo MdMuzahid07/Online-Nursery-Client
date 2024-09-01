@@ -11,6 +11,7 @@ const App = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+
   return (
     <>
       <Slider />

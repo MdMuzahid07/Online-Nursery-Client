@@ -75,9 +75,15 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
                     </svg>
                     My Cart
                 </h1>
-                <div className="overflow-y-scroll h-[470px]">
+                <div className="overflow-y-auto h-[470px]">
                     {
-                        cartProducts?.map((product) => <CartCard product={product} key={product?._id} />)
+                        (cartProducts.length > 0)
+                            ?
+                            cartProducts?.map((product) => <CartCard product={product} key={product?._id} />)
+                            :
+                            <div className="flex items-center justify-center h-full">
+                                <p className=" text-2xl text-green-900">Add items to your cart to continue your purchase.</p>
+                            </div>
                     }
                 </div>
                 <div className="flex justify-between items-center gap-2 bottom-0 pt-3">

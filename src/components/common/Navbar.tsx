@@ -14,7 +14,6 @@ const Navbar = () => {
     const [userDrop, setUserDrop] = useState(false);
     const [cartDrop, setCartDrop] = useState(false);
 
-
     return (
         <nav className="border-b sticky top-0 right-0 bg-white w-full h-16 md:h-20 flex items-center z-50">
             <div className="max-w-7xl mx-auto w-full px-4 xl:px-0">
@@ -26,8 +25,9 @@ const Navbar = () => {
                         </NavLink>
                     </div>
                     <div className="flex items-center">
+
                         <ul className="md:flex items-center hidden gap-7 font-semibold text-[#092001] text-xl md:border-r-2 border-slate-200 pr-6 mr-6 h-10">
-                            {navLinks.map(({ label, value }) => {
+                            {navLinks?.map(({ label, value }) => {
                                 return (
                                     <li key={value}>
                                         <Link to={value}>{label}</Link>
@@ -41,27 +41,10 @@ const Navbar = () => {
                             {/* // cart dropdown */}
                             <CartDropdown setCartDrop={setCartDrop} cartDrop={cartDrop} />
 
-                            <button
-                                onClick={() => setUserDrop(!userDrop)}
-                                className={styles.btn}
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="sm:w-5 w-4 sm:h-5 h-4"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                                    />
-                                </svg>
-                            </button>
+                            {/* // user dropdown */}
                             <UserDropdown setUserDrop={setUserDrop} userDrop={userDrop} />
 
+                            {/* // mobile nav start   */}
                             <button
                                 onClick={() => setDropdown(!dropDown)}
                                 className={`${styles.btn} flex md:hidden`}
@@ -103,7 +86,7 @@ const Navbar = () => {
                                 styles={"absolute top-16 rounded-lg right-0"}
                             >
                                 <ul className="font-semibold text-slate-900 text-2xl text-left">
-                                    {navLinks.map(({ label, value }) => {
+                                    {navLinks?.map(({ label, value }) => {
                                         return (
                                             <li key={value} className="mb-5 hover:text-red-500">
                                                 <Link to={value}>{label}</Link>
@@ -112,6 +95,8 @@ const Navbar = () => {
                                     })}
                                 </ul>
                             </Dropdown>
+                            {/* // mobile nav end   */}
+
                         </div>
                     </div>
                 </div>

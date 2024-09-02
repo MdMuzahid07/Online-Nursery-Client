@@ -105,7 +105,7 @@ const Footer = () => {
                             </svg>
                         </button>
                     </div>
-                    <img className="absolute bottom-10 right-0" src="../../../public/logo.png" alt="" />
+                    <img className="absolute bottom-10 right-0" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725263523/logo.png-1725263520983-image.png" alt="" />
                     <div
                         className={`max-w-7xl mx-auto w-full flex flex-col md:flex-row   md:justify-between md:items-center gap-3 text-md text-white`}
                     >

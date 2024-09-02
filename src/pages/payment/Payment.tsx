@@ -15,6 +15,7 @@ const Payment = () => {
     const { cartId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    console.log(error, "🐞🐞🐞🐞🐞");
 
     const payMethod = isStripe ? "Stripe" : "COD";
     const payStatus = isCod ? "Pending" : "Paid";
@@ -74,7 +75,7 @@ const Payment = () => {
 
     return (
         <div className="min-h-screen bg-[#E2E6E0] pb-32 relative">
-            <img className="w-full h-[500px] object-cover z-0" src="../../../public/slider-2.jpg" alt="" />
+            <img className="w-full h-[500px] object-cover z-0" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725262316/2151022074.jpg-1725262312628-image.jpg" alt="" />
             <div className="max-w-7xl  mx-auto bg-white min-h-[400px] bg-opacity-75 rounded-lg p-8 -mt-44 relative">
 
                 <div className="mb-10">

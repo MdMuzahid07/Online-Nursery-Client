@@ -21,7 +21,7 @@ const Navbar = () => {
                     <div>
                         {/* <img src="" alt="" /> */}
                         <NavLink to="/">
-                            <img className="w-12" src="../../../public/flora-essence.png" alt="" />
+                            <img className="w-12" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725263685/flora-essence.png-1725263683026-image.png" alt="" />
                         </NavLink>
                     </div>
                     <div className="flex items-center">

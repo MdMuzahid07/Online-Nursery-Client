@@ -1,8 +1,4 @@
-Here’s a README section focused on the client side of your Online Nursery project:
-
----
-
-# Online Nursery Client 🌱
+# Flora Essence 🌱
 
 ## Project Overview 🌱
 

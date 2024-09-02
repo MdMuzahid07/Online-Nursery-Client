@@ -6,11 +6,18 @@ import { clearCart } from "../../redux/feature/cart/CartSlice";
 import { useAddCartMutation } from "../../redux/feature/cart/CartApi";
 import { toast } from "sonner";
 
+interface TCartInfo {
+    productId: string;
+    quantity: number;
+    totalPrice: number;
+};
+
+
 const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const cartProducts = useAppSelector((state) => state.cart.products);
-    const [addCart, { error, isLoading }] = useAddCartMutation();
+    const [addCart, { isLoading }] = useAddCartMutation();
 
     // cart calculation
     const totalProducts = cartProducts?.length | 0;
@@ -23,13 +30,13 @@ const Cart = () => {
     const tax = Number(discountAmount * 0.5);
     const shippingCost = Number(cartProducts?.length * 5);
     const grandTotal = Number((newCost + tax + shippingCost).toFixed(2));
-    let cartProductsInfoToSubmit = [];
+    const cartProductsInfoToSubmit: TCartInfo[] = [];
 
     cartProducts?.forEach(element => {
         cartProductsInfoToSubmit.push({
             productId: element?._id,
             quantity: Number(element?.purchaseQuantity),
-            totalPrice: Number((element?.purchaseQuantity * element?.price).toFixed(2)),
+            totalPrice: Number((element?.purchaseQuantity as number * element?.price).toFixed(2)),
         })
     });
 
@@ -76,7 +83,7 @@ const Cart = () => {
     return (
         <div className="bg-[#E2E6E0] w-full h-full">
             <div className="h-56 w-full">
-                <img className="h-full w-full object-cover" src="../../../public/slider-3.jpg" alt="" />
+                <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725262330/2148928488.jpg-1725262326358-image.jpg" alt="" />
             </div>
             <div className="max-w-7xl mx-auto pt-16 pb-32 px-4 lg:px-0">
                 <div className="grid lg:grid-cols-8 gap-7 mt-14">

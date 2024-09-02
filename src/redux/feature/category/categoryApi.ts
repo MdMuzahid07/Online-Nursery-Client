@@ -16,6 +16,7 @@ const categoryApi = baseApi.injectEndpoints({
                 url: `/categories/${id}`,
                 method: "GET"
             }),
+            providesTags: ["Category"]
         }),
 
         addCategory: builder.mutation({

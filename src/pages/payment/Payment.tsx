@@ -11,7 +11,7 @@ const Payment = () => {
     const [addOrder, { error, isLoading }] = useAddOrderMutation();
     const [isStripe, setIsStripe] = useState(false);
     const [isCod, setIsCod] = useState(false);
-    const [stripePaymentInfo, setStripePaymentInfo] = useState();
+    const [stripePaymentInfo, setStripePaymentInfo]: any = useState();
     const { cartId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();

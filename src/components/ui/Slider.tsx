@@ -17,7 +17,7 @@ const Slider: React.FC = () => {
                 disableOnInteraction: false,
             }} modules={[Autoplay, Pagination]} className="mySwiper">
                 <SwiperSlide>
-                    <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('../../../public/slider-1.jpg')] flex items-center">
+                    <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725262300/2148928479.jpg-1725262297158-image.jpg')] flex items-center">
                         <div className="max-w-7xl mx-auto px-4 lg:px-0">
                             <h1 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.28)" }} className="text-2xl sm:text-4xl md:text-6xl xl:text-7xl text-right text-[#ffffff]">Best Three Collection</h1>
                             <p className="text-[#1B380A] text-right text-sm sm:text-2xl md:text-3xl xl:text-5xl sm:mt-4 md:mt-7 xl:mt-10" style={{ textShadow: "2px 2px 4px rgba(255, 255, 255)" }}>
@@ -27,7 +27,7 @@ const Slider: React.FC = () => {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('../../../public/slider-2.jpg')] flex justify-center items-center">
+                    <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725262316/2151022074.jpg-1725262312628-image.jpg')] flex justify-center items-center">
                         <div className="max-w-7xl mx-auto px-4 lg:px-0">
                             <h1 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.28)" }} className="text-2xl sm:text-4xl md:text-6xl xl:text-7xl text-left text-[#ffffff]">We Sale Beauty Of Nature</h1>
                             <p className="text-[#1B380A] text-left text-sm sm:text-2xl md:text-3xl xl:text-5xl sm:mt-4 md:mt-7 xl:mt-10" style={{ textShadow: "2px 2px 4px rgba(255, 255, 255)" }}>
@@ -37,7 +37,7 @@ const Slider: React.FC = () => {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('../../../public/slider-3.jpg')] flex justify-center items-center">
+                    <div className="w-full bg-no-repeat bg-cover h-[200px] sm:h-[360px] md:h-[450px] lg:h-[500px] xl:h-[700px] bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725262330/2148928488.jpg-1725262326358-image.jpg')] flex justify-center items-center">
                         <div className="max-w-7xl mx-auto px-4 lg:px-0">
                             <h1 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.28)" }} className="text-2xl sm:text-4xl md:text-6xl xl:text-7xl text-right text-[#ffffff]">Nature’s Finest Beauty for You</h1>
                             <p className="text-[#1B380A] text-right text-sm sm:text-2xl md:text-3xl xl:text-5xl sm:mt-4 md:mt-7 xl:mt-10" style={{ textShadow: "2px 2px 4px rgba(255, 255, 255)" }}>

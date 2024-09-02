@@ -1,9 +1,9 @@
 import { useLayoutEffect } from "react"
 import ProductSearch from "./components/product/ProductSearch"
-import Slider from "./components/ui/Slider"
 import MosaicView from "./pages/main/home/MosaicView"
 import Banner from "./pages/main/home/Banner"
 import CategorySlider from "./components/category/CategorySlider"
+import Slider from "./components/ui/Slider"
 
 const App = () => {
 

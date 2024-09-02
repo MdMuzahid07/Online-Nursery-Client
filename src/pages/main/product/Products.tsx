@@ -70,7 +70,7 @@ const Products = () => {
     return (
         <div className="bg-[#F4F7F6] min-h-screen">
             <div className="h-56 w-full hidden lg:block">
-                <img className="h-full w-full object-cover" src="../../../public/slider-3.jpg" alt="" />
+                <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725262330/2148928488.jpg-1725262326358-image.jpg" alt="" />
             </div>
             <div className="max-w-7xl mx-auto py-12 px-4 lg:px-0">
                 <h1 className="mb-10 text-3xl md:text-4xl font-bold text-green-900 lg:text-center">Our Products</h1>

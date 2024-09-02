@@ -4,6 +4,9 @@ import Dropdown from "../components/ui/Dropdown"
 import CartCard from "./CartCard"
 import { useAppSelector } from "../redux/hooks";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/feature/cart/CartSlice";
+import { toast } from "sonner";
 
 const styles = {
     btn: "sm:w-9 w-7 sm:h-9 h-7 rounded-full flex justify-center items-center border active:border-green-900",
@@ -13,16 +16,20 @@ const styles = {
 const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
     const navigate = useNavigate();
     const cartProducts = useAppSelector((state) => state.cart.products)
+    const dispatch = useDispatch();
 
     const handleCart = () => {
         navigate("/checkout-cart");
         setCartDrop(false);
     };
-    const handleCheckout = () => {
-        navigate("/payment");
-        setCartDrop(false);
-    };
 
+    const handleClearCart = () => {
+        const proceed = window.confirm("clear cart products?");
+        if (proceed) {
+            dispatch(clearCart());
+            toast.success("Cart clear", { id: "CartClear" });
+        }
+    };
 
     useEffect(() => {
         const handleBeforeUnload = (event: any) => {
@@ -88,7 +95,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
                 </div>
                 <div className="flex justify-between items-center gap-2 bottom-0 pt-3">
                     <button onClick={() => handleCart()} className="border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-white hover:text-green-900 bg-green-900 text-white">View Cart</button>
-                    <button disabled={cartProducts?.length <= 0} onClick={() => handleCheckout()} className={`${(cartProducts?.length <= 0) ? "opacity-75 hover:bg-green-700" : ""} border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-green-900 hover:text-white`}>Checkout</button>
+                    <button disabled={cartProducts?.length <= 0} onClick={handleClearCart} className={`${(cartProducts?.length <= 0) ? "opacity-75 hover:bg-green-700" : ""} border w-full py-1.5 rounded-full border-green-900 font-bold hover:bg-green-900 hover:text-white`}>Clear Cart</button>
                 </div>
             </Dropdown>
         </div>

@@ -3,7 +3,6 @@ import Main from "../layout/Main/Main";
 import App from "../App";
 import Products from "../pages/main/product/Products";
 import ProductDetails from "../pages/main/product/ProductDetails";
-import CheckoutCart from "../pages/main/CheckoutCart";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import ManageProduct from "../pages/dashboard/ManageProduct";
 import ManageCategory from "../pages/dashboard/ManageCategory";
@@ -12,6 +11,7 @@ import AddCategory from "../pages/dashboard/AddCategory";
 import Payment from "../pages/payment/Payment";
 import UpdateProduct from "../pages/dashboard/UpdateProduct";
 import UpdateCategory from "../pages/dashboard/UpdateCategory";
+import Cart from "../pages/main/Cart";
 
 
 
@@ -33,11 +33,11 @@ const router = createBrowserRouter([
                 element: <ProductDetails />
             },
             {
-                path: "/checkout-cart",
-                element: <CheckoutCart />
+                path: "/checkout-cart/",
+                element: <Cart />
             },
             {
-                path: "/payment",
+                path: "/payment/:cartId",
                 element: <Payment />
             },
         ]

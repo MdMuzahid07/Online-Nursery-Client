@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
-const PaymentForm = ({ setIsPaidWithStripe }: any) => {
-    const navigate = useNavigate();
+const PaymentForm = ({ setStripePaymentInfo }: any) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -32,12 +30,9 @@ const PaymentForm = ({ setIsPaidWithStripe }: any) => {
         if (error) {
             toast.error(error.message);
         } else {
-            console.log(paymentMethod, "🤑🤑🤑🤑🤑🤑🤑🤑");
+            console.log(paymentMethod)
+            setStripePaymentInfo(paymentMethod);
             toast.success("Payment Successful");
-            setTimeout(() => {
-                navigate("/");
-                window.scrollTo({ top: 0, behavior: "smooth" })
-            }, 2000);
         }
 
     };

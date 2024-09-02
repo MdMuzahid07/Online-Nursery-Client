@@ -82,7 +82,7 @@ const ProductSearch = () => {
                 <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                     {paginatedProducts?.length > 0 ? (
                         paginatedProducts?.map((product: any) => (
-                            <ProductCard product={product} />
+                            <ProductCard key={product?._id} product={product} />
                         ))
                     ) : (
                         <p className="text-green-900 text-lg col-span-full">No products found.</p>

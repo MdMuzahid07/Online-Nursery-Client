@@ -3,25 +3,14 @@ import CartPageCard from "../../cart/CartPageCard"
 import { useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearCart } from "../../redux/feature/cart/CartSlice";
+import { useAddCartMutation } from "../../redux/feature/cart/CartApi";
+import { toast } from "sonner";
 
-const CheckoutCart = () => {
+const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const cartProducts = useAppSelector((state) => state.cart.products);
-
-    const handleClearCart = () => {
-        const proceed = window.confirm("clear cart products?");
-        if (proceed) {
-            dispatch(clearCart());
-        }
-    };
-    const handleCheckout = () => {
-        navigate("/payment")
-    };
-
-    useLayoutEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+    const [addCart, { error, isLoading }] = useAddCartMutation();
 
     // cart calculation
     const totalProducts = cartProducts?.length | 0;
@@ -34,6 +23,55 @@ const CheckoutCart = () => {
     const tax = Number(discountAmount * 0.5);
     const shippingCost = Number(cartProducts?.length * 5);
     const grandTotal = Number((newCost + tax + shippingCost).toFixed(2));
+    let cartProductsInfoToSubmit = [];
+
+    cartProducts?.forEach(element => {
+        cartProductsInfoToSubmit.push({
+            productId: element?._id,
+            quantity: Number(element?.purchaseQuantity),
+            totalPrice: Number((element?.purchaseQuantity * element?.price).toFixed(2)),
+        })
+    });
+
+    const handleClearCart = () => {
+        const proceed = window.confirm("clear cart products?");
+        if (proceed) {
+            dispatch(clearCart());
+        }
+    };
+
+
+    const handleCart = async () => {
+        const cartData =
+        {
+            userId: "user_001",
+            items: [
+                ...cartProductsInfoToSubmit
+            ],
+            subtotal: Number(cost),
+            tax: Number(tax),
+            shippingCost: Number(shippingCost),
+            total: Number(grandTotal),
+            currency: "USD"
+        }
+
+        if (isLoading) {
+            toast.loading("Loading...", { id: "newCart" });
+        };
+
+        const data = await addCart(cartData).unwrap();
+
+        if (data?.success && data?.data?._id) {
+            console.log("working ?")
+            navigate(`/payment/${data?.data?._id}`)
+        }
+    };
+
+
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
     return (
         <div className="bg-[#E2E6E0] w-full h-full">
@@ -83,7 +121,7 @@ const CheckoutCart = () => {
                                     <button onClick={handleClearCart} className="px-4 py-1 border rounded-full bg-white text-green-900 hover:text-white hover:bg-red-500">Clear All</button>
                                     <button
                                         disabled={cartProducts?.length <= 0}
-                                        onClick={() => handleCheckout()} className={`${(cartProducts?.length <= 0) ? "opacity-75" : ""} px-4 py-1 border rounded-full bg-green-900 text-white font-bold w-32`}
+                                        onClick={() => handleCart()} className={`${(cartProducts?.length <= 0) ? "opacity-75" : ""} px-4 py-1 border rounded-full bg-green-900 text-white font-bold w-32`}
                                     >Checkout</button>
                                 </div>
                             </div>
@@ -95,4 +133,4 @@ const CheckoutCart = () => {
     )
 }
 
-export default CheckoutCart
+export default Cart;

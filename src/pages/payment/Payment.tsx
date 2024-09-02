@@ -1,21 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLayoutEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import StripePayment from "./StripePayment";
-import useWindowSize from 'react-use/lib/useWindowSize';
-import Confetti from 'react-confetti';
+import { toast } from "sonner";
+import { useAddOrderMutation } from "../../redux/feature/order/orderApi";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../redux/feature/cart/CartSlice";
 
 const Payment = () => {
+    const [addOrder, { error, isLoading }] = useAddOrderMutation();
     const [isStripe, setIsStripe] = useState(false);
     const [isCod, setIsCod] = useState(false);
-    const { width, height } = useWindowSize();
-    const [isConfettiVisible, setConfettiVisible] = useState(false);
-    const [isPaidWithStripe, setIsPaidWithStripe] = useState(false);
+    const [stripePaymentInfo, setStripePaymentInfo] = useState();
+    const { cartId } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleSubmit = (e: any) => {
+    const payMethod = isStripe ? "Stripe" : "COD";
+    const payStatus = isCod ? "Pending" : "Paid";
+
+
+    const handleOrderSubmit = async (e: any) => {
         e.preventDefault();
 
+        if (isStripe && !stripePaymentInfo?.card) {
+            return toast.error("Stipe selected, you have to pay first");
+        }
+
         const orderData = {
-            cartId: null,
+            cartId: cartId,
             customerDetails: {
                 name: e.target.name.value,
                 email: e.target.email.value,
@@ -28,17 +41,32 @@ const Payment = () => {
                     country: e.target.country.value
                 }
             },
-            paymentMethod: isStripe ? "Stripe" : "COD",
-            paymentStatus: isCod ? "Pending" : "Paid",
+            paymentMethod: payMethod,
+            paymentStatus: payStatus,
             orderStatus: "Completed"
         }
-        console.log(orderData)
+        if (error) {
+            return toast.loading("Order failed", { id: "orderPending" });
+        }
 
-        if (!isConfettiVisible) {
-            setConfettiVisible(true);
-            setTimeout(() => setConfettiVisible(false), 5000);
+        try {
+            if (isLoading) {
+                toast.loading("Processing your order...", { id: "orderPending" });
+            } else {
+                const data = await addOrder(orderData).unwrap();
+                if (data?.success) {
+                    toast.success("Order successful!", { id: "orderPending" });
+
+                    dispatch(clearCart());
+
+                    navigate("/");
+                }
+            }
+        } catch {
+            toast.error("Order failed. Please try again.", { id: "orderPending" });
         }
     };
+
 
     useLayoutEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -46,15 +74,14 @@ const Payment = () => {
 
     return (
         <div className="min-h-screen bg-[#E2E6E0] pb-32 relative">
-            {isConfettiVisible && <Confetti width={width} height={height} />}
             <img className="w-full h-[500px] object-cover z-0" src="../../../public/slider-2.jpg" alt="" />
             <div className="max-w-7xl  mx-auto bg-white min-h-[400px] bg-opacity-75 rounded-lg p-8 -mt-44 relative">
 
-                paymentSection && <div className="mb-10">
+                <div className="mb-10">
                     <h1 className="text-3xl font-bold mb-4 text-green-900 text-center ">Complete Your Purchase</h1>
                     <p className="text-center text-md opacity-75">Choose your preferred payment method to finalize your order, and confirm order</p>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleOrderSubmit}>
                     {/* Customer Information */}
                     <h2 className="text-xl font-semibold text-green-900 mb-4">Customer Information</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -172,19 +199,26 @@ const Payment = () => {
                         </label>
                     </div>
                     {
-                        isStripe && <StripePayment setIsPaidWithStripe={setIsPaidWithStripe} />
-                    }
-                    <div className="mt-10 flex justify-end">
-                        {
-                            ((isStripe && isPaidWithStripe) || isCod) && <button
+                        (isCod || isStripe) && <div className="mt-10 flex justify-end">
+                            <button
                                 type="submit"
                                 className="bg-green-900 w-44 font-bold border hover:border-green-900 hover:bg-white hover:text-green-900 text-white py-2 px-4 rounded-full"
                             >
                                 Confirm Order
                             </button>
+                        </div>
+                    }
+                </form>
+                <div className="mt-16">
+                    <div className="absolute bottom-8 left-8">
+                        {
+                            isStripe &&
+                            <StripePayment
+                                setStripePaymentInfo={setStripePaymentInfo}
+                            />
                         }
                     </div>
-                </form>
+                </div>
             </div>
         </div >
     );

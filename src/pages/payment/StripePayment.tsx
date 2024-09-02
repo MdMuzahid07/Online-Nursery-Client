@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "./PaymentForm";
@@ -5,11 +6,11 @@ import PaymentForm from "./PaymentForm";
 const stripePromise = loadStripe('pk_test_51Ps4QrIpcZgg2ccjzbz1tm3QoBxDKCtdXBBWzj8m01zQ8qUCd7PRm74fG2gmXAbRQC6WpS8Y1TJmIlsrjPp41aRb00sSaXGkR0');
 
 
-const StripePayment = () => {
+const StripePayment = ({ setIsPaidWithStripe }: any) => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="pt-6">
       <Elements stripe={stripePromise}>
-        <PaymentForm />
+        <PaymentForm setIsPaidWithStripe={setIsPaidWithStripe} />
       </Elements>
     </div>
   )

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
-const PaymentForm = () => {
+const PaymentForm = ({ setIsPaidWithStripe }: any) => {
     const navigate = useNavigate();
     const stripe = useStripe();
     const elements = useElements();
@@ -23,7 +24,7 @@ const PaymentForm = () => {
         }
 
         // const { error, paymentMethod } = await stripe.createPaymentMethod({
-        const { error } = await stripe.createPaymentMethod({
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card,
         });
@@ -31,6 +32,7 @@ const PaymentForm = () => {
         if (error) {
             toast.error(error.message);
         } else {
+            console.log(paymentMethod, "🤑🤑🤑🤑🤑🤑🤑🤑");
             toast.success("Payment Successful");
             setTimeout(() => {
                 navigate("/");
@@ -41,7 +43,7 @@ const PaymentForm = () => {
     };
 
     return (
-        <div className="border min-w-[350px] max-w-[400px] rounded-xl p-5 mt-10 bg-white">
+        <div className="border min-w-[350px] max-w-[400px] rounded-xl p-5 bg-white">
             <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{

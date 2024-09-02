@@ -74,7 +74,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
 
             <Dropdown
                 active={cartDrop}
-                styles={"absolute md:w-[400px] md:h-[600px] right-0 top-16 rounded-xl text-left"}
+                styles={"absolute w-full md:w-[400px] h-[500px] md:h-[600px] right-0 top-16 rounded-xl text-left"}
             >
                 <h1 className="text-2xl text-green-900 border-b pb-1 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -82,7 +82,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
                     </svg>
                     My Cart
                 </h1>
-                <div className="overflow-y-auto h-[470px]">
+                <div className="overflow-y-auto h-[350px] md:h-[470px]">
                     {
                         (cartProducts.length > 0)
                             ?

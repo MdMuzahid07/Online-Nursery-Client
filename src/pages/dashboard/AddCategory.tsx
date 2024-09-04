@@ -1,11 +1,15 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useAddCategoryMutation } from "../../redux/feature/category/categoryApi";
 import { toast } from "sonner";
+import useImgBBUpload from "../../hooks/useImgBBUpload";
 
 const AddCategory = () => {
     const [addCategory, { data, error, isLoading }] = useAddCategoryMutation();
     const [categoryName, setCategoryName] = useState<string>('');
-    const [file, setFile] = useState<File | null>(null);
+    // const [file, setFile] = useState<File | null>(null);
+    const { getEvent, img } = useImgBBUpload();
+
+    console.log(error, "🐞🐞🐞");
 
     if (isLoading) {
         toast.loading("Loading...", { id: "newCategory" });
@@ -23,25 +27,33 @@ const AddCategory = () => {
     const handleAddCategory = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (categoryName && file) {
+        if (categoryName && img) {
 
-            const formData = new FormData();
+            // const formData = new FormData();
 
-            formData.append("data", JSON.stringify({ name: categoryName }));
-            formData.append("categoryImg", file);
+            // formData.append("data", JSON.stringify({ name: categoryName }));
+            // formData.append("categoryImg", file);
 
-            addCategory(formData);
+
+            const categoryData = {
+                name: categoryName,
+                image: img
+            };
+
+            addCategory(categoryData);
+            console.log(categoryData, "category data")
+
 
             setCategoryName(" ");
-            setFile(null);
+            // setFile(null);
         }
     };
 
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setFile(e.target.files[0]);
-        }
-    };
+    // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files) {
+    //         setFile(e.target.files[0]);
+    //     }
+    // };
 
     return (
         <div className="pt-32 max-w-3xl mx-auto">
@@ -74,14 +86,14 @@ const AddCategory = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                         </svg>
-                        {file && "Image Selected"}
-                        {!file && "Select Image"}
+                        {img && "Image Selected"}
+                        {!img && "Select Image"}
                     </label>
                     <input
                         id="imageUpload"
                         type="file"
                         name="categoryImg"
-                        onChange={handleFileChange}
+                        onChange={getEvent}
                         className="w-full text-gray-700 hidden"
                         required
                     />

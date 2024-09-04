@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useGetAllCategoryQuery } from "../../redux/feature/category/categoryApi";
 import { useAddProductMutation } from "../../redux/feature/product/productApi";
 import { toast } from "sonner";
+import useImgBBUpload from "../../hooks/useImgBBUpload";
 
 
 interface TProductData {
@@ -12,12 +13,14 @@ interface TProductData {
     quantity: number;
     stock: number;
     category: string;
+    imageUrl?: string
 }
 
 const AddProduct = () => {
     const { data: categories } = useGetAllCategoryQuery(undefined);
     const [addProduct, { data, isLoading, error }] = useAddProductMutation();
-    const [file, setFile] = useState<File | null>(null);
+    // const [file, setFile] = useState<File | null>(null);
+    const { getEvent, img } = useImgBBUpload();
     const [productCategory, setProductCategory] = useState("");
     console.log(error)
 
@@ -35,9 +38,9 @@ const AddProduct = () => {
     };
 
     // handling image upload as an file
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFile(e.target.files?.[0] || null);
-    };
+    // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFile(e.target.files?.[0] || null);
+    // };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,23 +55,28 @@ const AddProduct = () => {
             price: Number(price.value),
             quantity: Number(quantity.value),
             stock: Number(stock.value),
-            category: productCategory
+            category: productCategory,
+            imageUrl: img
         };
 
         // creating an form data
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        if (file && productData) {
-            formData.append('file', file);
-            formData.append('data', JSON.stringify(productData));
+        // if (file && productData) {
+        //     formData.append('file', file);
+        //     formData.append('data', JSON.stringify(productData));
+        // }
+
+        if (!productData || !img) {
+            return toast.error("Product data and image must be added");
         }
 
         // sending product data to rtk query
-        addProduct(formData).then(() => {
+        addProduct(productData).then(() => {
 
             // resetting formValue(form) after successfully added the product
             formValues.reset();
-            setFile(null);
+            // setFile(null);
         });
 
     };
@@ -174,7 +182,7 @@ const AddProduct = () => {
                     <input
                         type="file"
                         name="file"
-                        onChange={handleFileChange}
+                        onChange={getEvent}
                         required
                         placeholder="product Image"
                         className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"

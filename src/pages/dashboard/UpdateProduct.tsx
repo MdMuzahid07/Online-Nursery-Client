@@ -4,6 +4,7 @@ import { useGetAllCategoryQuery } from "../../redux/feature/category/categoryApi
 import { useGetASingleProductQuery, useUpdateAProductMutation } from "../../redux/feature/product/productApi";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
+import useImgBBUpload from "../../hooks/useImgBBUpload";
 
 interface TProductData {
     title: string;
@@ -13,12 +14,14 @@ interface TProductData {
     stock: number;
     rating: any;
     category: string;
+    imageUrl?: string
 }
 
 const UpdateProduct = () => {
     const { data: categories } = useGetAllCategoryQuery(undefined);
     const [updateAProduct, { data, isLoading, error }] = useUpdateAProductMutation();
-    const [file, setFile] = useState<File | null>(null);
+    // const [file, setFile] = useState<File | null>(null);
+    const { getEvent, img } = useImgBBUpload();
     const [productCategory, setProductCategory] = useState();
     const { productId } = useParams();
     const { data: product } = useGetASingleProductQuery(productId);
@@ -35,12 +38,12 @@ const UpdateProduct = () => {
         toast.success("product updated successfully", { id: "updateProduct" });
     };
 
-    console.log({ product, error })
+    console.log({ product, error }, "update product 🐞🐞🐞🐞🐞");
 
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFile(e.target.files?.[0] || null);
-    };
+    // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFile(e.target.files?.[0] || null);
+    // };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -56,20 +59,15 @@ const UpdateProduct = () => {
             quantity: Number(quantity.value || product?.data?.quantity),
             rating: [...(product?.data?.rating) || []],
             stock: Number(stock.value || product?.data?.stock),
-            category: productCategory || product?.data?.category?._id
+            category: productCategory || product?.data?.category?._id,
+            imageUrl: img || product?.data?.imageUrl
         };
 
-        const formData = new FormData();
-
-        if (file) {
-            formData.append('file', file);
-        }
 
         if (productData) {
-            formData.append('data', JSON.stringify(productData));
+            updateAProduct({ id: productId, data: productData });
         }
 
-        updateAProduct({ id: productId, data: formData });
     };
 
     const handleCategory = (e: any) => {
@@ -167,7 +165,7 @@ const UpdateProduct = () => {
                     <input
                         type="file"
                         name="file"
-                        onChange={handleFileChange}
+                        onChange={getEvent}
                         placeholder="product Image"
                         className="w-full p-4 py-2 rounded-full focus:border-green-900 bg-slate-100 border"
                     />

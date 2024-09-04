@@ -190,6 +190,7 @@ const AddProduct = () => {
                 </div>
 
                 <button
+                    disabled={!img}
                     type="submit"
                     className="bg-green-900 text-white w-44 px-4 py-2 rounded-full hover:bg-green-700 transition duration-200"
                 >

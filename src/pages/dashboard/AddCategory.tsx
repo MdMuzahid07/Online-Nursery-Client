@@ -100,6 +100,7 @@ const AddCategory = () => {
                 </div>
 
                 <button
+                    disabled={!img}
                     type="submit"
                     className="bg-green-900 w-44 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline hover:bg-green-600 transition duration-200"
                 >

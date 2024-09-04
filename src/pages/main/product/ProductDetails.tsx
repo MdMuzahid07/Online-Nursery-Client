@@ -69,10 +69,10 @@ const ProductDetails = () => {
                 rating: [...(product?.data?.rating || []), reviewId],
             };
 
-            const formData = new FormData();
-            formData.append('data', JSON.stringify(productData));
+            // const formData = new FormData();
+            // formData.append('data', JSON.stringify(productData));
 
-            updateAProduct({ id: productId, data: formData });
+            updateAProduct({ id: productId, data: productData });
 
             e.target.name.value = " ";
             setReviewSter(3)

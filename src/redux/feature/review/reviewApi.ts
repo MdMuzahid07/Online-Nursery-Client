@@ -16,6 +16,7 @@ const reviewApi = baseApi.injectEndpoints({
                 url: `/reviews/${id}`,
                 method: "GET"
             }),
+            providesTags: ["Review"]
         }),
 
         addReview: builder.mutation({

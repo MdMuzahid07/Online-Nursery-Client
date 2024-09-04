@@ -10,7 +10,6 @@ const ProductSearch = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 10;
 
-
     const handleSearch = (e: any) => {
         setSearchQuery(e.target.value);
     };

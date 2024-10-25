@@ -1,5 +1,5 @@
 # Flora Essence 🌱
-
+ 
 ## Project Overview 🌱
 
 The client side of the Online Nursery project is built using React with state management handled by Redux Toolkit. It integrates with Stripe for payment processing and provides a user-friendly interface for browsing products, managing the shopping cart, and completing purchases. The project is developed using modern tools and practices to ensure a smooth and responsive user experience.

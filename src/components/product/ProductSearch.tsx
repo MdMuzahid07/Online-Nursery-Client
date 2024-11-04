@@ -89,11 +89,13 @@ const ProductSearch = () => {
                     )}
                 </div>
                 <div className="w-full flex justify-end mt-8">
-                    {/* <div className="flex items-center gap-4">
-                        {Array?.from({ length: totalPages }, (_, index) => (
-                            <button onClick={() => handlePageChange(index + 1)} className="w-7 h-7 flex justify-center items-center rounded-full border border-green-900 hover:bg-green-900 hover:text-white">{index + 1}</button>
-                        ))}
-                    </div> */}
+                    <div className="hidden">
+                        <div className="flex items-center gap-4">
+                            {Array?.from({ length: totalPages }, (_, index) => (
+                                <button onClick={() => handlePageChange(index + 1)} className="w-7 h-7 flex justify-center items-center rounded-full border border-green-900 hover:bg-green-900 hover:text-white">{index + 1}</button>
+                            ))}
+                        </div>
+                    </div>
                     <Link to="/products" className="bg-white px-4 py-1 rounded-full text-green-900 text-2x">More Products</Link>
                 </div>
             </div>

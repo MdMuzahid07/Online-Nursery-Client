@@ -4,6 +4,7 @@ import MosaicView from "./pages/main/home/MosaicView"
 import Banner from "./pages/main/home/Banner"
 import CategorySlider from "./components/category/CategorySlider"
 import Slider from "./components/ui/Slider"
+import NewsLetter from "./pages/main/newsletter/NewsLetter"
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
       <hr className="border-t border-white" />
       <ProductSearch />
       <MosaicView />
+      <NewsLetter />
     </>
   )
 }

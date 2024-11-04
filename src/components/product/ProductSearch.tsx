@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { useGetAllProductsQuery } from "../../redux/feature/product/productApi";
 import ProductCard from "./ProductCard"
+import { Link } from "react-router-dom";
 
 const ProductSearch = () => {
     const { data: products } = useGetAllProductsQuery(undefined);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortOption, setSortOption] = useState("default");
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 10;
+    const productsPerPage = 8;
 
     const handleSearch = (e: any) => {
         setSearchQuery(e.target.value);
@@ -78,7 +79,7 @@ const ProductSearch = () => {
                         </select>
                     </div>
                 </div>
-                <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
+                <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-4 md:gap-5">
                     {paginatedProducts?.length > 0 ? (
                         paginatedProducts?.map((product: any) => (
                             <ProductCard key={product?._id} product={product} />
@@ -88,11 +89,12 @@ const ProductSearch = () => {
                     )}
                 </div>
                 <div className="w-full flex justify-end mt-8">
-                    <div className="flex items-center gap-4">
+                    {/* <div className="flex items-center gap-4">
                         {Array?.from({ length: totalPages }, (_, index) => (
                             <button onClick={() => handlePageChange(index + 1)} className="w-7 h-7 flex justify-center items-center rounded-full border border-green-900 hover:bg-green-900 hover:text-white">{index + 1}</button>
                         ))}
-                    </div>
+                    </div> */}
+                    <Link to="/products" className="bg-white px-4 py-1 rounded-full text-green-900 text-2x">More Products</Link>
                 </div>
             </div>
         </div>
